@@ -1,0 +1,22 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()  // Adds the Google repository to fetch dependencies
+        mavenCentral()  // Optional, depending on your project needs
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.4' // Add the Gradle plugin version (update it as needed)
+        classpath 'com.google.gms:google-services:4.4.2'  // Google Services plugin
+    }
+}
+
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    id 'com.google.dagger.hilt.android' version '2.47' apply false
+    // Make sure that you have the Google services Gradle plugin 4.4.1+ dependency
+    id("com.google.gms.google-services") version "4.4.2" apply false
+    // Add the dependency for the Crashlytics Gradle plugin
+    id("com.google.firebase.crashlytics") version "3.0.3" apply false
+
+}

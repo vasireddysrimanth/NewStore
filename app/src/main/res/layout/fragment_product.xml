@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background ="@color/background_blue"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.products.ProductFragment">
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/txt_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/common_google_signin_btn_text_light_disabled"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/search_text_color"
+        android:textColorHint="@color/white"
+        android:layout_marginEnd="4dp"
+        android:background="@color/black"
+        android:ems="10"
+        app:queryBackground="@color/search_bg_color"
+        android:gravity="center_vertical"
+        app:iconifiedByDefault="false"
+        app:queryHint="Search by Name"
+         />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="64dp"
+        android:clipToPadding="false"
+        android:padding="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_product" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnShowDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="703dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/baseline_add_24"
+        app:backgroundTint="@color/background_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/secondary_text"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+</FrameLayout>

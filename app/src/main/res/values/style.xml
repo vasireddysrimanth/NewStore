@@ -1,0 +1,85 @@
+<resources>
+
+    <style name="Theme.UserApplication.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.UserApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ShapeAppearance.Material3.Circular.Image" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="ShapeAppearance.Material3.Circular.Image11" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30%</item>
+    </style>
+
+    <style name="AppTextBlack" >
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.Custom.Headline" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/material_dynamic_primary0</item>
+    </style>
+
+    <style name="TextAppearance.Custom.Body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/secondary_text</item>
+    </style>
+
+    <style name="TextAppearance.Custom.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/tertiary_text</item>
+    </style>
+
+    <style name="App.OutlineButton.Default" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/status_online_green</item>
+        <item name="android:fillColor">@color/status_online_green</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="color">@color/purple_700</item>
+        <item name="cornerRadius">2dp</item>
+        <item name ="android:textColor">@color/black</item>
+    </style>
+
+    <style name="App.OutlineButton.Default1" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/black</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="color">@color/purple_700</item>
+        <item name="cornerRadius">3dp</item>
+        <item name ="android:textColor">@color/black</item>
+    </style>
+
+    <style name="App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="strokeWidth">0dp</item>
+        <item name="cornerRadius">3dp</item>
+        <item name ="android:textColor">@color/black</item>
+    </style>
+
+    <style name="SettingsCardStyle">
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardElevation">6dp</item>
+        <item name="cardCornerRadius">12dp</item>
+    </style>
+
+    <style name="SettingsCardContent">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="SettingsCardText">
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+</resources>

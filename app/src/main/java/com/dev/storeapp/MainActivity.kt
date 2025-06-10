@@ -2,16 +2,22 @@ package com.dev.storeapp
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
+import com.dev.storeapp.app.receiver.AlarmReceiver
 import com.dev.storeapp.databinding.ActivityMainBinding
 import com.dev.storeapp.presentation.ui.Home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -22,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        scheduleAlarm()
 
         // Post to ensure views are measured
         binding.logoImage.post {
@@ -59,5 +66,29 @@ class MainActivity : AppCompatActivity() {
             duration = 1000L
             start()
         }
+    }
+
+    private fun scheduleAlarm() {
+
+        // Set the time to 12:00 AM
+
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+        }
+
+        val intent = Intent(this, AlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        // Set the alarm to repeat every day
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
+
+
     }
 }

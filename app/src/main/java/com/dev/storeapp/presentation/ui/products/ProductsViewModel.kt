@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev.storeapp.app.common.DataStatus
 import com.dev.storeapp.data.local.entity.ProductEntity
-import com.dev.storeapp.domain.useCase.AddToCartUseCase
+import com.dev.storeapp.app.common.Result
 import com.dev.storeapp.domain.useCase.ProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,6 +24,12 @@ class ProductsViewModel @Inject constructor(
     //create a state for products
     private val _uiState = MutableStateFlow<DataStatus<List<ProductEntity>>>(DataStatus.empty())
     var uiState = _uiState.asStateFlow()
+
+    private val _productIdUiState = MutableStateFlow<Result<ProductEntity>>(Result.Loading)
+    val productIdUiState = _productIdUiState.asStateFlow()
+
+    //create professional way to flow with state Data using result
+
 
     init{
         getAllProducts()
@@ -63,10 +69,17 @@ class ProductsViewModel @Inject constructor(
 
     //get product by id
     fun getProductById(id: Int) = viewModelScope.launch {
-        _uiState.value = DataStatus.loading()
+        _productIdUiState.value = Result.Loading
         productUseCase.getProductById(id)
-            .catch {  _uiState.value = it.message?.let { error ->  DataStatus.error(error) }!!}
-            .collect{ _uiState.value =  DataStatus.success(listOf(it))}
+            .catch { _productIdUiState.value = Result.Error(it) }
+            .collect { product ->
+                if (product != null) {
+                    _productIdUiState.value = Result.Success(product)
+                } else {
+                    _productIdUiState.value = Result.Error(Exception("Product not found"))
+                }
+            }
+
     }
 
     fun createProductToServer(productEntity: ProductEntity){

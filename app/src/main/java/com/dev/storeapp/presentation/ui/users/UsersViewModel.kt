@@ -3,6 +3,8 @@ package com.dev.storeapp.presentation.ui.users
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev.storeapp.app.common.DataStatus
+import com.dev.storeapp.app.common.Result
+import com.dev.storeapp.data.local.entity.ProductEntity
 import com.dev.storeapp.data.local.entity.UserEntity
 import com.dev.storeapp.domain.useCase.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,12 +25,11 @@ class UsersViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<DataStatus<List<UserEntity>>>(DataStatus.empty())
     var uiState = _uiState.asStateFlow()
 
+    private val _userDetailsUiState = MutableStateFlow<Result<UserEntity>>(Result.Loading)
+    var userDetailsUiState = _userDetailsUiState.asStateFlow()
+
     init {
         getAllUsers()
-        viewModelScope.launch {
-            userUseCase.sync()
-        }
-
     }
 
     private fun getAllUsers() = viewModelScope.launch {
@@ -59,7 +60,12 @@ class UsersViewModel @Inject constructor(
 
     fun getUserById(id: Int){
         viewModelScope.launch {
+            _userDetailsUiState.value = Result.Loading
             userUseCase.getUserById(id)
+                .catch { _userDetailsUiState.value = Result.Error(it) }
+                .collect { user ->
+                    _userDetailsUiState.value = Result.Success(user)
+                }
         }
     }
 

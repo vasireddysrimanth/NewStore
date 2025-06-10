@@ -35,4 +35,20 @@ fun ProductEntity.asProductModel() = Product(
     price = price?:0.0,
 )
 
+fun ProductEntity.toAddToCartEntity () :AddToCartEntity{
+    return AddToCartEntity(
+        id = id,
+        title = title,
+        brand = brand,
+        category = category,
+        color = color,
+        description = description,
+        discount = discount,
+        image = image,
+        model = model,
+        price = price,
+        quantity = 1
+    )
+}
+
 

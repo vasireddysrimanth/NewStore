@@ -10,7 +10,7 @@ interface ProductRepository {
     suspend fun deleteProduct(productEntity: ProductEntity)
     suspend fun deleteProductById(id:Int)
     suspend fun getAllProducts() :Flow<List<ProductEntity>>
-    suspend fun getProductById(id: Int) : Flow<ProductEntity>
+    suspend fun getProductById(id: Int) : Flow<ProductEntity?>
 
     //for Remote
     suspend fun getRemoteProducts(): List<ProductEntity>

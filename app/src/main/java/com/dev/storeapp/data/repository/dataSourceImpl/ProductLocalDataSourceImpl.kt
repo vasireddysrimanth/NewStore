@@ -13,7 +13,7 @@ class ProductLocalDataSourceImpl @Inject constructor(
         return  productsDao.getAllProducts()
     }
 
-    override fun getProductById(id: Int): Flow<ProductEntity> {
+    override fun getProductById(id: Int): Flow<ProductEntity?> {
         return productsDao.getProductByID(id)
     }
 

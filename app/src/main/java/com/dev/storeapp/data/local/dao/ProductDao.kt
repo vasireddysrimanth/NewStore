@@ -15,7 +15,7 @@ interface ProductDao {
     fun getAllProducts():Flow<List<ProductEntity>>
 
     @Query("SELECT * FROM products WHERE id = :id")
-    fun getProductByID(id:Int):Flow<ProductEntity>
+    fun getProductByID(id:Int):Flow<ProductEntity?>
 
     @Upsert
     suspend fun insertProduct(productEntity: ProductEntity)

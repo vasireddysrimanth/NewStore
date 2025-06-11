@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import com.dev.storeapp.databinding.ActivityMainBinding
-import com.dev.storeapp.presentation.ui.Home.HomeFragment
+import com.dev.storeapp.presentation.ui.auth.LoginFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomText.visibility = View.GONE
                 binding.fragmentContainerView.visibility = View.VISIBLE
                 supportFragmentManager.commit {
-                    replace(R.id.fragment_container_view, HomeFragment.newInstance())
+                    replace(R.id.fragment_container_view, LoginFragment.newInstance())
                 }
             }
         }

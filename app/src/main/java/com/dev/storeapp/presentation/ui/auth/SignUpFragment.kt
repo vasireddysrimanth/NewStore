@@ -1,26 +1,37 @@
-package com.dev.storeapp.presentation.auth
+package com.dev.storeapp.presentation.ui.auth
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.dev.storeapp.databinding.ActivitySignUpBinding
+import com.dev.storeapp.R
+import com.dev.storeapp.app.base.BaseFragment
+import com.dev.storeapp.databinding.FragmentSignUpBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 
-class SignupActivity : AppCompatActivity() {
 
+class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
     private lateinit var auth: FirebaseAuth
-    private lateinit var binding: ActivitySignUpBinding
+    companion object {
+        private const val TAG = "SignUpFragment"
+        fun newInstance() = SignUpFragment()
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySignUpBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun getBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        bundle: Bundle?
+    ): FragmentSignUpBinding {
+        return FragmentSignUpBinding.inflate(inflater, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         // Initialize Firebase Auth
         auth = Firebase.auth
 
@@ -52,13 +63,19 @@ class SignupActivity : AppCompatActivity() {
         }
 
         binding.loginText.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
+            try {
+
+                replaceFragment(R.id.fragment_container_view, LoginFragment.newInstance(), false)
+            }catch (e:Exception){
+                Log.e(TAG, "Error replacing fragment: ${e.message}")
+                Toast.makeText(requireContext(), "Error navigating to login", Toast.LENGTH_SHORT).show()
+            }
         }
     }
+
     private fun createAccount(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
+            .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
@@ -67,20 +84,21 @@ class SignupActivity : AppCompatActivity() {
                 } else {
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
                     val errorMessage = task.exception?.localizedMessage ?: "Signup failed."
-                    Toast.makeText(baseContext, errorMessage, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                     updateUI(null)
                 }
             }
     }
+
     private fun sendEmailVerification() {
         val user = auth.currentUser
         user?.sendEmailVerification()
-            ?.addOnCompleteListener(this) { task ->
+            ?.addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(baseContext, "Verification email sent.", Toast.LENGTH_SHORT,).show()
+                    Toast.makeText(requireContext(), "Verification email sent.", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e(TAG, "sendEmailVerification", task.exception)
-                    Toast.makeText(baseContext, "Failed to send verification email.", Toast.LENGTH_SHORT,).show()
+                    Toast.makeText(requireContext(), "Failed to send verification email.", Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -88,13 +106,10 @@ class SignupActivity : AppCompatActivity() {
     private fun updateUI(user: FirebaseUser?) {
         // Implement your UI updates after successful signup
         if (user != null) {
-            Toast.makeText(baseContext, "Signup successful! Verification email sent.", Toast.LENGTH_LONG).show()
-            startActivity(Intent(this, LoginActivity::class.java))
-             finish()
+            Toast.makeText(requireContext(), "Signup successful! Verification email sent.", Toast.LENGTH_LONG).show()
+            replaceFragment(R.id.fragment_container_view, LoginFragment.newInstance(), false)
         }
     }
 
-    companion object {
-        private const val TAG = "SignupActivity"
-    }
+
 }

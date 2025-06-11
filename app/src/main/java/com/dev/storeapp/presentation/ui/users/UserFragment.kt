@@ -52,7 +52,7 @@ class UserFragment : BaseFragment<FragmentUserBinding>() {
     private fun initViews() {
         binding.productRecyclerView.adapter = adapter
         adapter.setOnItemClickListener { userEntity ->
-            goToUserDetailsFragment(userEntity.toUser())
+            goToUserDetailsFragment(userEntity)
         }
         binding.txtSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -78,8 +78,8 @@ class UserFragment : BaseFragment<FragmentUserBinding>() {
         }
     }
 
-    private fun goToUserDetailsFragment(toUser: User) {
-        replaceFragment(R.id.fragment_container, UserDetailsFragment.newInstance(toUser), true)
+    private fun goToUserDetailsFragment(toUser: UserEntity) {
+        replaceFragment(R.id.fragment_container, UserDetailsFragment.newInstance(toUser.id), true)
     }
 
     private fun createObserver() {

@@ -66,11 +66,8 @@ class UserRepositoryImpl @Inject constructor(
 
     //for remote
     override suspend fun getRemoteUsers(): List<UserEntity> {
-        val remoteUsers = remoteDataSource.getAllUsers()
-        if (remoteUsers.isNotEmpty()) {
-            userLocalDataSource.insertAllUsers(remoteUsers)
-        }
-        return remoteUsers
+        return remoteDataSource.getAllUsers()
+
     }
 
     override suspend fun createUserToServer(user: UserEntity) {

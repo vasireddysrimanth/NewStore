@@ -17,7 +17,7 @@ class ProductRepositoryImpl @Inject constructor(
 ): ProductRepository{
 
     // i created a job for syncing data from remote to local
-    // manually also it will work but in future i will add more Features so for better Applc
+    // manually also it will work but in future i will add more Features so for better Apply
     override suspend fun sync(): Boolean {
         val deferredJob  = applicationScope.async{
             try {
@@ -52,15 +52,13 @@ class ProductRepositoryImpl @Inject constructor(
         return  localDataSource.getAllProducts()
     }
 
-    override suspend fun getProductById(id:Int): Flow<ProductEntity> {
+    override suspend fun getProductById(id:Int): Flow<ProductEntity?> {
         return localDataSource.getProductById(id)
     }
 
     //for Remote
     override suspend fun getRemoteProducts(): List<ProductEntity> {
-        val products =  productRemoteDataSource.getRemoteProducts()
-        if(products.isNotEmpty()) insertAllProduct(products)
-        return products
+        return productRemoteDataSource.getRemoteProducts()
     }
 
     override suspend fun createProductToServer(productEntity: ProductEntity) {

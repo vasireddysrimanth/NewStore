@@ -17,7 +17,7 @@ class ProductUseCase  @Inject constructor(
 
     suspend fun getAllProducts(): Flow<List<ProductEntity>> = repository.getAllProducts()
 
-    suspend fun getProductById(id: Int): Flow<ProductEntity> = repository.getProductById(id)
+    suspend fun getProductById(id: Int): Flow<ProductEntity?> = repository.getProductById(id)
 
     suspend fun sync(): Boolean = repository.sync()
 

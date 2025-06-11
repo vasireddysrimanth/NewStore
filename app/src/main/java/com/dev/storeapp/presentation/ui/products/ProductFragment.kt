@@ -104,6 +104,6 @@ class ProductFragment : BaseFragment<FragmentProductBinding>() {
     }
 
     private fun goToProductDetails(product:Product){
-        replaceFragment(R.id.fragment_container,ProductDetailsFragment.newInstance(product),true)
+        replaceFragment(R.id.fragment_container,ProductDetailsFragment.newInstance(product.id),true)
     }
 }

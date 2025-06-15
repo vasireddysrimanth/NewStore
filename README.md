@@ -454,7 +454,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Srimanth Vasireddy**
 - GitHub: [@vasireddysrimanth](https://github.com/vasireddysrimanth)
-- Email: vasireddysrimanth@gmail.com
+- Email: vasireddysrimanth49@gmail.com
 
 ## 🙏 Acknowledgments
 

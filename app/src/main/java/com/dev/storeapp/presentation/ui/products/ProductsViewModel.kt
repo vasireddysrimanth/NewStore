@@ -33,9 +33,6 @@ class ProductsViewModel @Inject constructor(
 
     init{
         getAllProducts()
-        viewModelScope.launch {
-            productUseCase.sync()
-        }
     }
 
 

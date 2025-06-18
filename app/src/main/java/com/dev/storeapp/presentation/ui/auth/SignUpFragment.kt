@@ -119,10 +119,10 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
         db.collection("users").document(user.uid)
             .set(userMap)
             .addOnSuccessListener {
-                AppLogger.d(TAG, "User added to Firestore")
+                AppLogger.d(TAG, "User added to Fire store")
             }
             .addOnFailureListener { e ->
-                AppLogger.e(TAG, "Error adding user to Firestore:  $e")
+                AppLogger.e(TAG, "Error adding user to Fire store:  $e")
             }
     }
 

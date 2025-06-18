@@ -1,6 +1,6 @@
 package com.dev.storeapp.presentation.di
 
-import com.dev.storeapp.app.constants.ApiConstnats
+import com.dev.storeapp.app.constants.ApiConstants
 import com.dev.storeapp.data.network.StoreApi
 import com.dev.storeapp.data.network.UserApi
 import dagger.Module
@@ -35,7 +35,7 @@ object ApiModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(ApiConstnats.BASE_URL)
+            .baseUrl(ApiConstants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

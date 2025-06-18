@@ -87,8 +87,9 @@ class UserFragment : BaseFragment<FragmentUserBinding>() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {users->
                     when (users.status) {
-                        DataStatus.Status.LOADING -> {}
+                        DataStatus.Status.LOADING -> {showLoader()}
                         DataStatus.Status.SUCCESS -> users.data?.let {
+                            hideLoader()
                             userList = it
                             adapter.differ.submitList(userList)
                         }

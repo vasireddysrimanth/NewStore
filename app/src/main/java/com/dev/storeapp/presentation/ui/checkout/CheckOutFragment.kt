@@ -69,15 +69,9 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>() {
 
         checkOutAdapter = CheckOutAdapter()
         binding.recyclerView.adapter = checkOutAdapter
-
-        // Initialize currentProductList with initial data
         val itemsToDisplay = if (allProducts.isNotEmpty()) allProducts else product?.let { listOf(it) } ?: emptyList()
         currentProductList = itemsToDisplay.toMutableList()
-
-        // Submit list to adapter
         checkOutAdapter?.differ?.submitList(currentProductList.toList())
-
-        // Update total amount on UI
         updateTotalAmount(currentProductList)
 
         // Back button listener
@@ -85,14 +79,8 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>() {
             goBack()
         }
 
-        // Confirm button listener: pass currentProductList to PaymentFragment
         binding.confirmButton.setOnClickListener {
-            // *** HERE IS THE FIX: Pass the currentProductList which is updated ***
-            replaceFragment(
-                R.id.fragment_container,
-                PaymentFragment.newInstance(currentProductList),
-                true
-            )
+            replaceFragment(  R.id.fragment_container,  PaymentFragment.newInstance(currentProductList), true)
         }
 
         attachSwipeGestures()

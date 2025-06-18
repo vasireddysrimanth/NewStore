@@ -56,9 +56,11 @@ class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding>() {
             viewModel.userDetailsUiState.collect { result ->
                 when (result) {
                     is Result.Loading -> {
+                        showLoader()
                         AppLogger.d("UserDetailsFragment", "Loading user details...")
                     }
                     is Result.Success -> {
+                        hideLoader()
                         val user = result.data
                         updateUI(user)
                     }

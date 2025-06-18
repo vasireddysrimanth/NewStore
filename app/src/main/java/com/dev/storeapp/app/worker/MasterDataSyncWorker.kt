@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.dev.storeapp.domain.repository.FireBaseUserRepository
 import com.dev.storeapp.domain.repository.ProductRepository
 import com.dev.storeapp.domain.repository.UserRepository
 import dagger.assisted.Assisted
@@ -18,15 +19,18 @@ class MasterDataSyncWorker @AssistedInject constructor(
     @Assisted private val context: Context,
     @Assisted private val workerParams: WorkerParameters,
     private val productRepository: ProductRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val fireBaseUserRepository: FireBaseUserRepository
 ) : CoroutineWorker(context, workerParams) {
     override suspend fun doWork(): Result {
         withContext(Dispatchers.IO) {
             supervisorScope {
                 val productSyncDeferred = async { productRepository.sync() }
                 val userSyncDeferred = async { userRepository.sync() }
+                val fireBaseUsersSyncDeferred = async {fireBaseUserRepository.sync() }
                 productSyncDeferred.await()
                 userSyncDeferred.await()
+                fireBaseUsersSyncDeferred.await()
             }
         }
         return Result.success()

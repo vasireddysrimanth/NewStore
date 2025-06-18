@@ -68,9 +68,11 @@ class CartsFragment : BaseFragment<FragmentCartsBinding>(),View.OnClickListener 
             viewModel.uiState.collect {
                 when(it){
                     is Result.Loading  ->{
+                        showLoader()
                         AppLogger.d("CartsFragment","Loading...!")
                     }
                     is Result.Success -> {
+                        hideLoader()
                         adapter.differ.submitList(it.data)
                         updateCartButtonsVisibility(it.data.isEmpty())
                     }

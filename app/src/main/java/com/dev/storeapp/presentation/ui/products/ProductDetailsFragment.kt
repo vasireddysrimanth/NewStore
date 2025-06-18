@@ -108,9 +108,11 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>(), Vi
                 when (result) {
                     is Result.Loading -> {
                         // Show loading indicator if needed
+                        showLoader()
                         Log.d(TAG, "Loading product...")
                     }
                     is Result.Success -> {
+                        hideLoader()
                         product = result.data
                         updateUi(result.data)
                         // Check cart status for the loaded product

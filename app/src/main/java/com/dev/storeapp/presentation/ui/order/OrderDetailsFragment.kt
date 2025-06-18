@@ -53,7 +53,7 @@ class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>() {
         if (order.isNotEmpty()) {
             displayReceipt(order)
         } else {
-            binding.receiptTextView.text = "Order details not available."
+            binding.receiptTextView.text = getString(R.string.order_details_not_available)
         }
 
     }

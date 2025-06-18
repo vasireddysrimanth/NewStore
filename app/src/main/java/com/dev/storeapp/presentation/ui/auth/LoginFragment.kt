@@ -60,9 +60,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             signIn(email, password)
         }
 
-        binding.signupText.setOnClickListener {
+        binding.signupLink.setOnClickListener {
             try{
+                showLoader()
                 replaceFragment(R.id.fragment_container_view, SignUpFragment.newInstance(), false)
+                hideLoader()
             }catch (e: Exception) {
                 Log.e(TAG, "Error navigating to SignUpFragment: ${e.localizedMessage}")
                 Toast.makeText(requireContext(), "Error navigating to Sign Up", Toast.LENGTH_SHORT).show()
@@ -99,7 +101,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         // Implement your UI updates based on the user's sign-in status
         if (user != null) {
             try{
+                showLoader()
             replaceFragment(R.id.fragment_container_view, HomeFragment.newInstance(), false)
+                hideLoader()
         }catch (e: Exception) {
             Log.e(TAG, "Error navigating to HomeFragment: ${e.localizedMessage}")
             Toast.makeText(requireContext(), "Error navigating to Home", Toast.LENGTH_SHORT).show()

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.viewbinding.ViewBinding
+import com.dev.storeapp.app.utils.ProgressDialogUtils
 import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseFragment <VB: ViewBinding> :Fragment(){
@@ -74,6 +75,13 @@ abstract class BaseFragment <VB: ViewBinding> :Fragment(){
     fun clearAllBackStack(){
         activity?.supportFragmentManager?.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
+
+
+     private val progressDialog by lazy {
+         ProgressDialogUtils(requireContext())
+     }
+    fun showLoader() = progressDialog.showProgress()
+    fun hideLoader() = progressDialog.dismissProgress()
 
 
 

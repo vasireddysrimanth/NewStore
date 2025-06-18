@@ -84,8 +84,9 @@ class ProductFragment : BaseFragment<FragmentProductBinding>() {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.uiState.collect{
                         when (it.status) {
-                            DataStatus.Status.LOADING -> {}
+                            DataStatus.Status.LOADING -> { showLoader() }
                             DataStatus.Status.SUCCESS -> it.data?.let { users->
+                                hideLoader()
                                 productList  = users
                                 adapter.differ.submitList(productList)
                                 binding.productRecyclerView.adapter = adapter

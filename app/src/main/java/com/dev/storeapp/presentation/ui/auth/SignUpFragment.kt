@@ -62,7 +62,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
             createAccount(email, password)
         }
 
-        binding.loginText.setOnClickListener {
+        binding.loginLink.setOnClickListener {
             try {
 
                 replaceFragment(R.id.fragment_container_view, LoginFragment.newInstance(), false)

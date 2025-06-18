@@ -27,4 +27,5 @@
     <string name="your_orders">Your Orders</string>
     <string name="sign_in">Sign In</string>
     <string name="forgot_password">Forgot Password?</string>
+    <string name="order_details_not_available">Order details not available.</string>
 </resources>

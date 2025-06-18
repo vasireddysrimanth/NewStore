@@ -56,9 +56,11 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
             viewModel.orderDetails.collect {
                 when(it){
                     is Result.Loading  ->{
+                        showLoader()
                         AppLogger.d(TAG,"Loading...!")
                     }
                     is Result.Success -> {
+                        hideLoader()
                         Log.i("OrderFragment", "Orders: ${it.data}")
                         adapter?.differ?.submitList(it.data)
                     }

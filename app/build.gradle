@@ -54,6 +54,9 @@ dependencies {
     implementation libs.androidx.lifecycle.viewmodel.ktx
     implementation libs.androidx.navigation.fragment.ktx
     implementation libs.androidx.navigation.ui.ktx
+    implementation libs.firebase.storage
+    implementation libs.firebase.database
+    implementation "com.google.firebase:firebase-firestore-ktx:25.1.4"
     def room_version = "2.6.1"
 
     //Room Database

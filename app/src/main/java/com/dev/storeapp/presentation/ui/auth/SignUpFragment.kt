@@ -8,15 +8,24 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.dev.storeapp.R
 import com.dev.storeapp.app.base.BaseFragment
+import com.dev.storeapp.app.utils.AppLogger
 import com.dev.storeapp.databinding.FragmentSignUpBinding
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.auth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-
+@AndroidEntryPoint
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
+
     private lateinit var auth: FirebaseAuth
+    private val db = Firebase.firestore
+
     companion object {
         private const val TAG = "SignUpFragment"
         fun newInstance() = SignUpFragment()
@@ -32,17 +41,25 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Initialize Firebase Auth
         auth = Firebase.auth
-
         initViews()
     }
 
     private fun initViews() {
         binding.singUpButton.setOnClickListener {
-            val email = binding.emailInput.text.toString().trim() // Trim whitespace
+            val username = binding.usernameInput.text.toString().trim()
+            val gender = binding.genderInput.text.toString().trim()
+            val email = binding.emailInput.text.toString().trim()
             val password = binding.passwordInput.text.toString().trim()
 
+            if (username.isEmpty()) {
+                binding.usernameInput.error = "Username is required"
+                return@setOnClickListener
+            }
+            if (gender.isEmpty()) {
+                binding.genderInput.error = "Gender is required"
+                return@setOnClickListener
+            }
             if (email.isEmpty()) {
                 binding.emailInput.error = "Email is required"
                 return@setOnClickListener
@@ -50,7 +67,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
                 binding.emailInput.error = "Enter a valid email address"
                 return@setOnClickListener
             }
-
             if (password.isEmpty()) {
                 binding.passwordInput.error = "Password is required"
                 return@setOnClickListener
@@ -59,26 +75,26 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
                 return@setOnClickListener
             }
 
-            createAccount(email, password)
+            createAccount(username, gender, email, password)
         }
 
         binding.loginLink.setOnClickListener {
             try {
-
                 replaceFragment(R.id.fragment_container_view, LoginFragment.newInstance(), false)
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 Log.e(TAG, "Error replacing fragment: ${e.message}")
                 Toast.makeText(requireContext(), "Error navigating to login", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun createAccount(email: String, password: String) {
+    private fun createAccount(username: String, gender: String, email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "createUserWithEmail:success")
+                    AppLogger.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
+                    saveUserToFirestore(user, username, gender)
                     updateUI(user)
                     sendEmailVerification()
                 } else {
@@ -87,6 +103,26 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
                     Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                     updateUI(null)
                 }
+            }
+    }
+
+    private fun saveUserToFirestore(user: FirebaseUser?, username: String, gender: String) {
+        if (user == null) return
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val userMap = hashMapOf(
+            "uid" to user.uid,
+            "username" to username,
+            "email" to user.email,
+            "gender" to gender,
+            "created_at" to currentDate
+        )
+        db.collection("users").document(user.uid)
+            .set(userMap)
+            .addOnSuccessListener {
+                AppLogger.d(TAG, "User added to Firestore")
+            }
+            .addOnFailureListener { e ->
+                AppLogger.e(TAG, "Error adding user to Firestore:  $e")
             }
     }
 
@@ -104,12 +140,9 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
     }
 
     private fun updateUI(user: FirebaseUser?) {
-        // Implement your UI updates after successful signup
         if (user != null) {
             Toast.makeText(requireContext(), "Signup successful! Verification email sent.", Toast.LENGTH_LONG).show()
             replaceFragment(R.id.fragment_container_view, LoginFragment.newInstance(), false)
         }
     }
-
-
 }

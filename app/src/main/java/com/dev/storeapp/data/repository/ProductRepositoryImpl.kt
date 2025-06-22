@@ -1,5 +1,6 @@
 package com.dev.storeapp.data.repository
 
+import com.dev.storeapp.app.utils.AppLogger
 import com.dev.storeapp.data.local.entity.ProductEntity
 import com.dev.storeapp.data.repository.dataSource.ProductLocalDataSource
 import com.dev.storeapp.data.repository.dataSource.ProductRemoteDataSource
@@ -23,8 +24,10 @@ class ProductRepositoryImpl @Inject constructor(
             try {
                 val products = getRemoteProducts()
                 insertAllProduct(products)
+                AppLogger.d("ProductRepository", "Products synced: ${products.size}")
                 return@async true
             } catch (e: Exception) {
+                AppLogger.d("ProductRepository", "Products  not synced: ${e.localizedMessage}")
                 return@async false
             }
         }

@@ -1,5 +1,6 @@
 package com.dev.storeapp.data.repository
 
+import com.dev.storeapp.app.utils.AppLogger
 import com.dev.storeapp.data.local.entity.FireBaseUserEntity
 import com.dev.storeapp.data.repository.dataSource.FireBaseUserLocalDataSource
 import com.dev.storeapp.data.repository.dataSource.FireBaseUserRemoteDataSource
@@ -20,8 +21,10 @@ class FireBaseRepositoryImpl @Inject constructor(
             try {
                 val fireBaseUsers = getRemoteUsers()
                 insertUser(fireBaseUsers)
+                AppLogger.d("ProductRepository", "Products  not synced: ${fireBaseUsers.size}")
                 return@async true
             } catch (e: Exception) {
+                AppLogger.d("ProductRepository", "Products  not synced: ${e.localizedMessage}")
                 return@async false
             }
         }

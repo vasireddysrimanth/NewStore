@@ -1,5 +1,6 @@
 package com.dev.storeapp.data.repository
 
+import com.dev.storeapp.app.utils.AppLogger
 import com.dev.storeapp.data.local.entity.UserEntity
 import com.dev.storeapp.data.repository.dataSource.UserLocalDataSource
 import com.dev.storeapp.data.repository.dataSource.UserRemoteDataSource
@@ -22,9 +23,11 @@ class UserRepositoryImpl @Inject constructor(
             try{
                 val remoteUsers =getRemoteUsers()
                 insertAllUsers(remoteUsers)
+                AppLogger.d("ProductRepository", "Products  not synced: ${remoteUsers.size}")
                 return@async true
             }catch (e :Exception){
                 e.printStackTrace()
+                AppLogger.d("ProductRepository", "Products  not synced: ${e.localizedMessage}")
                 return@async false
             }
         }

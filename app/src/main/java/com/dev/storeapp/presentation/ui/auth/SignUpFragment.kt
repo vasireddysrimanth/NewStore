@@ -13,6 +13,7 @@ import com.dev.storeapp.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
@@ -94,7 +95,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
                 if (task.isSuccessful) {
                     AppLogger.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
-                    saveUserToFirestore(user, username, gender)
+                    saveUserToFireStore(user, username, gender)
                     updateUI(user)
                     sendEmailVerification()
                 } else {
@@ -106,15 +107,14 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
             }
     }
 
-    private fun saveUserToFirestore(user: FirebaseUser?, username: String, gender: String) {
+    private fun saveUserToFireStore(user: FirebaseUser?, username: String, gender: String) {
         if (user == null) return
-        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         val userMap = hashMapOf(
             "uid" to user.uid,
             "username" to username,
             "email" to user.email,
             "gender" to gender,
-            "created_at" to currentDate
+            "createdAt" to  FieldValue.serverTimestamp()
         )
         db.collection("users").document(user.uid)
             .set(userMap)

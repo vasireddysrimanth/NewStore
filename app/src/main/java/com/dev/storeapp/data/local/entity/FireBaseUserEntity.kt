@@ -4,23 +4,22 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.dev.storeapp.app.constants.DBConstants
 import com.dev.storeapp.data.model.FireBaseUser
+import com.google.firebase.Timestamp
 
 @Entity(DBConstants.FIREBASE_USER_ENTITY)
 data class FireBaseUserEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
     val uid: String = "",
     val email: String = "",
     val username: String = "",
     val gender: String = "",
-    val created_at: Long = 0
+    val createdAt: Timestamp? = null
 )
 
-fun FireBaseUserEntity.toFireBaseUser()=FireBaseUser(
-    id = id,
+fun FireBaseUserEntity.toFireBaseUser() = FireBaseUser(
     uid = uid,
     email = email,
     username = username,
     gender = gender,
-    created_at = created_at
+    createdAt = createdAt
 )

@@ -88,6 +88,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
+                    initialMasterDataSync()
                     updateUI(user)
                     Toast.makeText(requireContext(), "Login successful!", Toast.LENGTH_SHORT).show()
                 } else {

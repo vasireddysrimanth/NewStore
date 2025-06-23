@@ -12,4 +12,6 @@ class FireBaseUserLocalDataSourceImpl @Inject constructor(
     override fun getAllUsers(): Flow<List<FireBaseUserEntity>> = userDao.getAllUsers()
 
     override suspend fun insertUser(users: List<FireBaseUserEntity>) = userDao.insertUsers(users)
+
+    override suspend fun getUserNameByEmail(email: String): String?  = userDao.getUserNameByEmail(email)
 }

@@ -1,16 +1,20 @@
 package com.dev.storeapp.presentation.di
 
 import com.dev.storeapp.data.repository.AddToCartRepositoryImpl
+import com.dev.storeapp.data.repository.FireBaseRepositoryImpl
 import com.dev.storeapp.data.repository.OrderRepositoryImpl
 import com.dev.storeapp.data.repository.ProductRepositoryImpl
 import com.dev.storeapp.data.repository.UserRepositoryImpl
 import com.dev.storeapp.data.repository.dataSource.AddToCartLocalDataSource
+import com.dev.storeapp.data.repository.dataSource.FireBaseUserLocalDataSource
+import com.dev.storeapp.data.repository.dataSource.FireBaseUserRemoteDataSource
 import com.dev.storeapp.data.repository.dataSource.OrderLocalDataSource
 import com.dev.storeapp.data.repository.dataSource.ProductLocalDataSource
 import com.dev.storeapp.data.repository.dataSource.ProductRemoteDataSource
 import com.dev.storeapp.data.repository.dataSource.UserLocalDataSource
 import com.dev.storeapp.data.repository.dataSource.UserRemoteDataSource
 import com.dev.storeapp.domain.repository.AddToCartRepository
+import com.dev.storeapp.domain.repository.FireBaseUserRepository
 import com.dev.storeapp.domain.repository.OrderRepository
 import com.dev.storeapp.domain.repository.ProductRepository
 import com.dev.storeapp.domain.repository.UserRepository
@@ -73,6 +77,18 @@ class RepositoryModule {
         return OrderRepositoryImpl(addToCartLocalDataSource)
     }
 
+    @Singleton
+    @Provides
+    fun provideFireBaseUserRepository(
+        userLocalDataSource: FireBaseUserLocalDataSource,
+        userRemoteDataSource: FireBaseUserRemoteDataSource,
+        @AppModule.ApplicationScope applicationScope: CoroutineScope
+    ): FireBaseUserRepository {
+        return FireBaseRepositoryImpl(
+            userRemoteDataSource, userLocalDataSource, applicationScope
+        )
+    }
+
     // Providing ProductUseCase
     @Singleton
     @Provides
@@ -98,5 +114,6 @@ class RepositoryModule {
     fun provideOrderUseCase(repository: OrderRepository): com.dev.storeapp.domain.useCase.OrderUseCase {
         return com.dev.storeapp.domain.useCase.OrderUseCase(repository)
     }
+
 
 }

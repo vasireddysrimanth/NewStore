@@ -8,18 +8,24 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.dev.storeapp.R
 import com.dev.storeapp.app.base.BaseFragment
+import com.dev.storeapp.app.constants.Constants
 import com.dev.storeapp.databinding.FragmentLoginBinding
 import com.dev.storeapp.presentation.ui.Home.HomeFragment
+import com.dev.storeapp.presentation.utils.SharedPreferenceHelper
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private lateinit var auth: FirebaseAuth
+
+    @Inject
+    lateinit var sharedPreferenceHelper: SharedPreferenceHelper
 
     companion object {
         private const val TAG = "LoginFragment"
@@ -88,7 +94,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
+                    initialMasterDataSync()
                     updateUI(user)
+                    sharedPreferenceHelper?.put(Constants.LOGGED_IN_USER_EMAIL, user?.email ?: "")
                     Toast.makeText(requireContext(), "Login successful!", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)

@@ -6,4 +6,5 @@ object DBConstants {
     const val USERS_TABLE_NAME = "users"
     const val CART_SALE_TABLE_NAME = "cart_sale"
     const val ORDER_ENTITY_TABLE = "orders"
+    const val FIREBASE_USER_ENTITY  = "firebase_users"
 }

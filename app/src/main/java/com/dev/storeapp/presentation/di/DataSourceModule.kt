@@ -1,23 +1,29 @@
 package com.dev.storeapp.presentation.di
 
 import com.dev.storeapp.data.local.dao.AddToCartDao
+import com.dev.storeapp.data.local.dao.FireBaseUserDao
 import com.dev.storeapp.data.local.dao.OrderDao
 import com.dev.storeapp.data.local.dao.ProductDao
 import com.dev.storeapp.data.local.dao.UserDao
 import com.dev.storeapp.data.network.StoreApi
 import com.dev.storeapp.data.network.UserApi
 import com.dev.storeapp.data.repository.dataSource.AddToCartLocalDataSource
+import com.dev.storeapp.data.repository.dataSource.FireBaseUserLocalDataSource
+import com.dev.storeapp.data.repository.dataSource.FireBaseUserRemoteDataSource
 import com.dev.storeapp.data.repository.dataSource.OrderLocalDataSource
 import com.dev.storeapp.data.repository.dataSource.ProductLocalDataSource
 import com.dev.storeapp.data.repository.dataSource.ProductRemoteDataSource
 import com.dev.storeapp.data.repository.dataSource.UserLocalDataSource
 import com.dev.storeapp.data.repository.dataSource.UserRemoteDataSource
 import com.dev.storeapp.data.repository.dataSourceImpl.AddToCartLocalDataSourceImpl
+import com.dev.storeapp.data.repository.dataSourceImpl.FireBaseUserLocalDataSourceImpl
+import com.dev.storeapp.data.repository.dataSourceImpl.FireBaseUsersRemoteDataSourceImpl
 import com.dev.storeapp.data.repository.dataSourceImpl.OrderLocalDataSourceImpl
 import com.dev.storeapp.data.repository.dataSourceImpl.ProductLocalDataSourceImpl
 import com.dev.storeapp.data.repository.dataSourceImpl.ProductRemoteDataSourceImpl
 import com.dev.storeapp.data.repository.dataSourceImpl.UserLocalDataSourceImpl
 import com.dev.storeapp.data.repository.dataSourceImpl.UserRemoteDataSourceImpl
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -58,6 +64,18 @@ class DataSourceModule {
     @Provides
     fun provideOrderLocalDataSource(orderDao: OrderDao):OrderLocalDataSource =
         OrderLocalDataSourceImpl(orderDao)
+
+
+    @Singleton
+    @Provides
+    fun provideFireBaseUserLocalDataSource(fireBaseDao: FireBaseUserDao):FireBaseUserLocalDataSource=
+        FireBaseUserLocalDataSourceImpl(fireBaseDao)
+
+
+    @Singleton
+    @Provides
+    fun provideFireBaseUserRemoteDataSource(fireBaseUserApi: FirebaseFirestore): FireBaseUserRemoteDataSource =
+        FireBaseUsersRemoteDataSourceImpl(fireBaseUserApi)
 
 
 }

@@ -44,8 +44,14 @@ object DbModule {
     @Provides
     fun provideOrderDao(db: StoreDataBase) = db.orderDao()
 
+    @Singleton
+    @Provides
+    fun provideFireBaseUserDao(db: StoreDataBase) = db.fireBaseUserDao()
+
     @Provides
     fun provideProductEntity() =ProductEntity()
+
+
 
 
 }

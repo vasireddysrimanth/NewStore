@@ -8,7 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.viewbinding.ViewBinding
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.dev.storeapp.app.utils.ProgressDialogUtils
+import com.dev.storeapp.app.worker.MasterDataSyncWorker
 import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseFragment <VB: ViewBinding> :Fragment(){
@@ -76,6 +79,17 @@ abstract class BaseFragment <VB: ViewBinding> :Fragment(){
         activity?.supportFragmentManager?.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 
+     fun initialMasterDataSync() {
+        val constraints = androidx.work.Constraints.Builder()
+            .setRequiredNetworkType(androidx.work.NetworkType.CONNECTED)
+            .build()
+
+        val workRequest = OneTimeWorkRequestBuilder<MasterDataSyncWorker>()
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager.getInstance(requireContext()).enqueue(workRequest)
+    }
 
      private val progressDialog by lazy {
          ProgressDialogUtils(requireContext())

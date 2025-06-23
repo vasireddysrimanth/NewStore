@@ -1,18 +1,25 @@
 package com.dev.storeapp.presentation.ui.Home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dev.storeapp.R
 import com.dev.storeapp.app.base.BaseFragment
+import com.dev.storeapp.app.constants.Constants
 import com.dev.storeapp.databinding.FragmentHomeBinding
 import com.dev.storeapp.presentation.ui.settings.SettingsFragment
 import com.dev.storeapp.presentation.ui.products.ProductFragment
+import com.dev.storeapp.presentation.utils.SharedPreferenceHelper
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+
+    @Inject
+    lateinit var sharedPreferenceHelper: SharedPreferenceHelper
 
     companion object {
         val TAG = "HomeFragment"
@@ -27,6 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.e("HomeFragment", "user email ${sharedPreferenceHelper.get(Constants.LOGGED_IN_USER_EMAIL)}")
         initViews()
         createObserver()
     }

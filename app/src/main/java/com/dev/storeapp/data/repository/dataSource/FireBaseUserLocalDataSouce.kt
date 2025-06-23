@@ -7,4 +7,6 @@ interface FireBaseUserLocalDataSource {
     fun getAllUsers(): Flow<List<FireBaseUserEntity>>
 
     suspend fun insertUser(users: List<FireBaseUserEntity>)
+
+    suspend fun getUserNameByEmail(email: String): String?
 }

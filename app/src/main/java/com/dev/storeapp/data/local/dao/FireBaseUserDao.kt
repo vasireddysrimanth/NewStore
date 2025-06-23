@@ -17,4 +17,7 @@ interface FireBaseUserDao {
     @Query("SELECT * FROM ${DBConstants.FIREBASE_USER_ENTITY}")
      fun getAllUsers(): Flow<List<FireBaseUserEntity>>
 
+     @Query("SELECT username FROM ${DBConstants.FIREBASE_USER_ENTITY} WHERE email = :email")
+     fun getUserNameByEmail(email: String): String?
+
 }

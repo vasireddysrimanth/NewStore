@@ -55,7 +55,6 @@ class AddProductDialogFragment : BaseDialogFragment<FragmentAddProductDialogBind
                         image = edtImage.text.toString()
                     }
                     viewModel.insertProduct(entity)
-                    viewModel.createProductToServer(entity)
                     Toast.makeText(requireContext(), "product added Successfully..!", Toast.LENGTH_SHORT).show()
                     dismiss()
                     clearFocus()

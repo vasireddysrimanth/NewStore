@@ -98,8 +98,8 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideUserUseCase(repository: UserRepository): UserUseCase {
-        return UserUseCase(repository)
+    fun provideUserUseCase(repository: UserRepository,fireBaseUserRepository: FireBaseUserRepository): UserUseCase {
+        return UserUseCase(repository,fireBaseUserRepository)
     }
 
     // Providing AddToCartUseCase

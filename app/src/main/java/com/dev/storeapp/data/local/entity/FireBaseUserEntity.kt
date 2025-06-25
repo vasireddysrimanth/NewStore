@@ -13,7 +13,8 @@ data class FireBaseUserEntity(
     val email: String = "",
     val username: String = "",
     val gender: String = "",
-    val createdAt: Timestamp? = null
+    val createdAt: Timestamp? = null,
+    val profileImagePath: String? = null
 )
 
 fun FireBaseUserEntity.toFireBaseUser() = FireBaseUser(

@@ -20,4 +20,11 @@ class FireBaseUsersRemoteDataSourceImpl @Inject constructor(
             emptyList()
         }
     }
+
+    override suspend fun updateUser(user: FireBaseUserEntity) {
+            firestore.collection("users")
+                .document(user.uid)
+                .set(user)
+                .await() // Use kotlinx-coroutines-play-services
+    }
 }

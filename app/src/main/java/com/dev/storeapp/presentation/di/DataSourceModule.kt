@@ -23,6 +23,7 @@ import com.dev.storeapp.data.repository.dataSourceImpl.ProductLocalDataSourceImp
 import com.dev.storeapp.data.repository.dataSourceImpl.ProductRemoteDataSourceImpl
 import com.dev.storeapp.data.repository.dataSourceImpl.UserLocalDataSourceImpl
 import com.dev.storeapp.data.repository.dataSourceImpl.UserRemoteDataSourceImpl
+import com.dev.storeapp.presentation.utils.SharedPreferenceHelper
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
@@ -68,8 +69,8 @@ class DataSourceModule {
 
     @Singleton
     @Provides
-    fun provideFireBaseUserLocalDataSource(fireBaseDao: FireBaseUserDao):FireBaseUserLocalDataSource=
-        FireBaseUserLocalDataSourceImpl(fireBaseDao)
+    fun provideFireBaseUserLocalDataSource(fireBaseDao: FireBaseUserDao,sharedPreferenceHelper: SharedPreferenceHelper):FireBaseUserLocalDataSource=
+        FireBaseUserLocalDataSourceImpl(fireBaseDao,sharedPreferenceHelper)
 
 
     @Singleton

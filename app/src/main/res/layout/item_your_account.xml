@@ -1,0 +1,10 @@
+<com.google.android.material.button.MaterialButton
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cartsButton"
+    android:layout_width="210dp"
+    android:layout_height="60dp"
+    android:padding="8dp"
+    android:layout_margin="8dp"
+    android:text="@string/cart_items"
+    style="@style/App.OutlineButton.Default1"
+    />

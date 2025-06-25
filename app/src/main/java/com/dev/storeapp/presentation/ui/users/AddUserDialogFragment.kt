@@ -68,7 +68,6 @@ class AddUserDialogFragment : BaseDialogFragment<FragmentAddUserDialogBinding>()
                         password = ""
                     )
                     viewModel.insertUser(entity)
-                    viewModel.createUserToServer(user = entity)
                     Toast.makeText(requireContext(), "User Added Successfully", Toast.LENGTH_SHORT).show()
                     dismiss()
                     clearFocus()

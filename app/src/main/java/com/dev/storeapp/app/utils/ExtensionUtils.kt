@@ -2,6 +2,11 @@ package com.dev.storeapp.app.utils
 
 import android.view.View
 import android.widget.TextView
+import com.google.firebase.Timestamp
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
 
 
 fun View.visible() = if(visibility != View.VISIBLE) visibility = View.VISIBLE else Unit
@@ -78,5 +83,12 @@ fun Int?.getNonEmptyInt(fallback: Int): Int {
 
 fun Int?.getIntByOne(): Int {
     return this ?: 1
+}
+
+fun Timestamp?.toFormattedDate(pattern: String = "yyyy-MM-dd HH:mm:ss"): String {
+    if (this == null) return ""
+    val date = this.toDate()
+    val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+    return sdf.format(date)
 }
 

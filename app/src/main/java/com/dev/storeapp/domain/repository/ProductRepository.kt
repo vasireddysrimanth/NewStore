@@ -14,7 +14,6 @@ interface ProductRepository {
 
     //for Remote
     suspend fun getRemoteProducts(): List<ProductEntity>
-    suspend fun createProductToServer(productEntity: ProductEntity)
 
     //for sync
     suspend fun sync() : Boolean

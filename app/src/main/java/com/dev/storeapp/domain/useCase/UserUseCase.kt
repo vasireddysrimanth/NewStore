@@ -1,12 +1,15 @@
 package com.dev.storeapp.domain.useCase
 
+import com.dev.storeapp.data.local.entity.FireBaseUserEntity
 import com.dev.storeapp.data.local.entity.UserEntity
+import com.dev.storeapp.domain.repository.FireBaseUserRepository
 import com.dev.storeapp.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class UserUseCase @Inject constructor(
-    private val repository: UserRepository
+    private val repository: UserRepository,
+    private val fireBaseUserRepository: FireBaseUserRepository
 ) {
 
 
@@ -26,8 +29,15 @@ class UserUseCase @Inject constructor(
 
     suspend fun insertUser(user:UserEntity) = repository.insertUser(user)
 
-    //currently only one method so directly passing to Products ViewModel
-    suspend fun createUserToServer(user:UserEntity) = repository.createUserToServer(user)
+    suspend fun getUserNameByEmail(): String? {
+        return fireBaseUserRepository.getUserNameByEmail()
+    }
+
+    suspend fun getFirebaseUsers() = fireBaseUserRepository.getAllUsers()
+    fun getUserByEmail(): Flow<FireBaseUserEntity> = fireBaseUserRepository.getUserByEmail()
+    suspend fun upsertUser(user : FireBaseUserEntity) = fireBaseUserRepository.upsertUser(user)
+
+
 
 
 }

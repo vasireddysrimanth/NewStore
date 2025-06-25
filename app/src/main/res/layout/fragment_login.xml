@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
-    tools:context=".presentation.auth.LoginActivity">
+    tools:context=".auth.LoginFragment">
 
     <TextView
         android:id="@+id/app_title"
@@ -85,7 +85,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     android:textSize="16sp"
-                    android:paddingStart="48dp" /> </com.google.android.material.textfield.TextInputLayout>
+                    android:paddingStart="48dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_input_layout"

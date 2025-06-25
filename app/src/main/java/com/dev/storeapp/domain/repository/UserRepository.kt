@@ -28,6 +28,5 @@ interface UserRepository  {
     //sync
     suspend fun sync(): Boolean
 
-    suspend fun createUserToServer(user: UserEntity)
 
 }

@@ -37,6 +37,7 @@ class UserRepositoryImpl @Inject constructor(
     //for local data source
     override suspend fun insertUser(user: UserEntity) {
         userLocalDataSource.insertUser(user)
+        remoteDataSource.createUserToServer(user)
     }
 
     override suspend fun insertAllUsers(users: List<UserEntity>) {
@@ -73,8 +74,5 @@ class UserRepositoryImpl @Inject constructor(
 
     }
 
-    override suspend fun createUserToServer(user: UserEntity) {
-            remoteDataSource.createUserToServer(user)
-    }
 
 }

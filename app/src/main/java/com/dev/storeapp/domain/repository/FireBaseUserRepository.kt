@@ -12,4 +12,10 @@ interface FireBaseUserRepository {
 
     suspend fun getRemoteUsers(): List<FireBaseUserEntity>
 
+    suspend fun getUserNameByEmail():String?
+
+     fun getUserByEmail() :Flow<FireBaseUserEntity>
+
+    suspend fun upsertUser(user :FireBaseUserEntity)
+
 }

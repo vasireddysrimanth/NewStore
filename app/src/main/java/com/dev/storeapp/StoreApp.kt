@@ -20,7 +20,6 @@ class StoreApp : Application(), Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
         FirebaseApp.initializeApp(this)
-        syncImmediately()
         AppLogger.d("StoreApp", "Application started")
     }
 

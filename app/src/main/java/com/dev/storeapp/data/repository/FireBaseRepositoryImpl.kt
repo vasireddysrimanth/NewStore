@@ -42,4 +42,16 @@ class FireBaseRepositoryImpl @Inject constructor(
     override suspend fun getRemoteUsers(): List<FireBaseUserEntity> {
         return firestoreSource.fetchAllUsers()
     }
+
+    override suspend fun getUserNameByEmail(): String? {
+        return fireBaseUserLocalDataSource.getUserNameByEmail()
+    }
+
+    override  fun getUserByEmail() = fireBaseUserLocalDataSource.getUserByEmail()
+
+    override suspend fun upsertUser(user: FireBaseUserEntity){
+        AppLogger.e("userData","userData ${user.toString()}")
+        fireBaseUserLocalDataSource.upsertUser(user) //for local
+            firestoreSource.updateUser(user) //for remote
+    }
 }

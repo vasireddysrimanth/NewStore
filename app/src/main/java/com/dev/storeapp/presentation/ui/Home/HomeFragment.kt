@@ -9,8 +9,10 @@ import com.dev.storeapp.R
 import com.dev.storeapp.app.base.BaseFragment
 import com.dev.storeapp.app.constants.Constants
 import com.dev.storeapp.databinding.FragmentHomeBinding
+import com.dev.storeapp.presentation.ui.carts.CartsFragment
 import com.dev.storeapp.presentation.ui.settings.SettingsFragment
 import com.dev.storeapp.presentation.ui.products.ProductFragment
+import com.dev.storeapp.presentation.ui.you.ProfileFragment
 import com.dev.storeapp.presentation.utils.SharedPreferenceHelper
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -49,13 +51,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     replaceFragment(R.id.fragment_container,ProductFragment.newInstance())
                     true
                 }
-
-//                R.id.users -> {
-//                    replaceFragment(R.id.fragment_container,UserFragment.newInstance())
-//                    true
-//                }
-
-                R.id.settings -> {
+                R.id.you ->{
+                    replaceFragment(R.id.fragment_container,ProfileFragment.newInstance())
+                    true
+                }
+                R.id.carts->{
+                    replaceFragment(R.id.fragment_container,CartsFragment.newInstance())
+                    true
+                }
+                R.id.menu -> {
                     replaceFragment(R.id.fragment_container, SettingsFragment.newInstance())
                     true
                 }

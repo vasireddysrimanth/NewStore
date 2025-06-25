@@ -79,13 +79,4 @@ class ProductsViewModel @Inject constructor(
 
     }
 
-    fun createProductToServer(productEntity: ProductEntity){
-        viewModelScope.launch {
-            productUseCase.createProductToServer(productEntity)
-        }
-    }
-
-
-
-
 }

@@ -21,6 +21,5 @@ class ProductUseCase  @Inject constructor(
 
     suspend fun sync(): Boolean = repository.sync()
 
-    suspend fun createProductToServer(productEntity: ProductEntity) = repository.createProductToServer(productEntity)
 
 }

@@ -37,6 +37,7 @@ class ProductRepositoryImpl @Inject constructor(
     //for local data source
     override suspend fun insertProduct(productEntity: ProductEntity) {
             localDataSource.insertProduct(productEntity)
+            productRemoteDataSource.createProductToServer(productEntity)
     }
 
     override suspend fun insertAllProduct(productEntity: List<ProductEntity>) {
@@ -64,7 +65,4 @@ class ProductRepositoryImpl @Inject constructor(
         return productRemoteDataSource.getRemoteProducts()
     }
 
-    override suspend fun createProductToServer(productEntity: ProductEntity) {
-         productRemoteDataSource.createProductToServer(productEntity)
-    }
 }

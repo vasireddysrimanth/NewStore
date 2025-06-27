@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/round_win"
     android:padding="10dp"
-    tools:context=".presentation.ui.users.AddUserDialogFragment">
+    tools:context=".presentation.ui.dialog.AddUserDialogFragment">
 
     <ImageView
         android:id="@+id/imgClose"

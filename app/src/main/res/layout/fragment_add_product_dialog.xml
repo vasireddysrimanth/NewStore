@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/round_win"
     android:padding="10dp"
-    tools:context=".presentation.ui.products.AddProductDialogFragment">
+    tools:context=".presentation.ui.dialog.AddProductDialogFragment">
 
     <!-- Close Button -->
     <ImageView

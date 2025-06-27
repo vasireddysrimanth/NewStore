@@ -1,6 +1,5 @@
 package com.dev.storeapp.presentation.ui.products
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +18,7 @@ import com.dev.storeapp.data.local.entity.asProductModel
 import com.dev.storeapp.data.model.Product
 import com.dev.storeapp.databinding.FragmentProductBinding
 import com.dev.storeapp.presentation.adapter.ProductAdapter
+import com.dev.storeapp.presentation.ui.dialog.AddProductDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -74,7 +74,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>() {
 
         binding.btnShowDialog.setOnClickListener{
             val showAddProductDialogFragment = AddProductDialogFragment.newInstance()
-            showAddProductDialogFragment.show(childFragmentManager,AddProductDialogFragment.TAG)
+            showAddProductDialogFragment.show(childFragmentManager, AddProductDialogFragment.TAG)
         }
     }
 

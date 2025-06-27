@@ -1,4 +1,4 @@
-package com.dev.storeapp.presentation.ui.products
+package com.dev.storeapp.presentation.ui.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +9,13 @@ import androidx.fragment.app.viewModels
 import com.dev.storeapp.app.base.BaseDialogFragment
 import com.dev.storeapp.data.local.entity.ProductEntity
 import com.dev.storeapp.databinding.FragmentAddProductDialogBinding
+import com.dev.storeapp.presentation.ui.products.ProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddProductDialogFragment : BaseDialogFragment<FragmentAddProductDialogBinding>() {
 
-    private val viewModel :ProductsViewModel by viewModels()
+    private val viewModel : ProductsViewModel by viewModels()
     companion object {
         const val TAG = "AddProductDialogFragment"
         fun newInstance() = AddProductDialogFragment()

@@ -1,4 +1,4 @@
-package com.dev.storeapp.presentation.ui.users
+package com.dev.storeapp.presentation.ui.you
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import com.dev.storeapp.app.utils.AppLogger
 import com.dev.storeapp.app.utils.toFormattedDate
 import com.dev.storeapp.data.local.entity.FireBaseUserEntity
 import com.dev.storeapp.databinding.FragmentUserDetailsBinding
-import com.dev.storeapp.presentation.ui.you.ProfileEditBottomSheetFragment
+import com.dev.storeapp.presentation.ui.dialog.ProfileEditBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 

@@ -10,14 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.dev.storeapp.R
 import com.dev.storeapp.app.base.BaseFragment
 import com.dev.storeapp.app.common.DataStatus
 import com.dev.storeapp.data.local.entity.UserEntity
-import com.dev.storeapp.data.local.entity.toUser
-import com.dev.storeapp.data.model.User
 import com.dev.storeapp.databinding.FragmentUserBinding
 import com.dev.storeapp.presentation.adapter.UserAdapter
+import com.dev.storeapp.presentation.ui.dialog.AddUserDialogFragment
+import com.dev.storeapp.presentation.ui.you.UsersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -74,7 +73,7 @@ class UserFragment : BaseFragment<FragmentUserBinding>() {
 
         binding.btnShowDialog.setOnClickListener{
             val addUserDialogFragment = AddUserDialogFragment.newInstance()
-            addUserDialogFragment.show(childFragmentManager,AddUserDialogFragment.TAG)
+            addUserDialogFragment.show(childFragmentManager, AddUserDialogFragment.TAG)
         }
     }
 

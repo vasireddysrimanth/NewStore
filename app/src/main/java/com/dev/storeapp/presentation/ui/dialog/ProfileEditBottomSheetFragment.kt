@@ -1,4 +1,4 @@
-package com.dev.storeapp.presentation.ui.you
+package com.dev.storeapp.presentation.ui.dialog
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -16,8 +16,8 @@ import com.dev.storeapp.app.extensions.launchAndRepeatOnStarted
 import com.dev.storeapp.app.utils.AppLogger
 import com.dev.storeapp.data.local.entity.FireBaseUserEntity
 import com.dev.storeapp.databinding.FragmentProfileEditBottomSheetBinding
-import com.dev.storeapp.presentation.ui.users.UserDetailsFragment
-import com.dev.storeapp.presentation.ui.users.UsersViewModel
+import com.dev.storeapp.presentation.ui.you.UserDetailsFragment
+import com.dev.storeapp.presentation.ui.you.UsersViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.Timestamp
 import dagger.hilt.android.AndroidEntryPoint

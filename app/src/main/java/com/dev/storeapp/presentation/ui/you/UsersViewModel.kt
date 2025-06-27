@@ -1,4 +1,4 @@
-package com.dev.storeapp.presentation.ui.users
+package com.dev.storeapp.presentation.ui.you
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlinx.coroutines.flow.collect
 
 @HiltViewModel
 class UsersViewModel @Inject constructor(

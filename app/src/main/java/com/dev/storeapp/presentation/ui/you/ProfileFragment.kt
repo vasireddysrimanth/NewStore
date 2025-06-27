@@ -17,9 +17,11 @@ import com.dev.storeapp.data.model.FeatureDestination
 import com.dev.storeapp.databinding.FragmentYouBinding
 import com.dev.storeapp.presentation.adapter.AccountFeaturesAdapter
 import com.dev.storeapp.presentation.ui.carts.CartsFragment
+import com.dev.storeapp.presentation.ui.dialog.CommonBottomSheetFragment
+import com.dev.storeapp.presentation.ui.dialog.UserBottomSettingsSheetFragment
+import com.dev.storeapp.presentation.ui.dialog.UserBottomSheetFragment
 import com.dev.storeapp.presentation.ui.order.OrderFragment
 import com.dev.storeapp.presentation.ui.products.ProductFragment
-import com.dev.storeapp.presentation.ui.users.UsersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
@@ -43,7 +45,7 @@ class ProfileFragment : BaseFragment<FragmentYouBinding>() {
         super.onViewCreated(view, savedInstanceState)
         userViewModel.loadUserName()
         setupObservers()
-        setupViews()
+        intiViews()
     }
 
     private fun setupObservers() {
@@ -74,7 +76,7 @@ class ProfileFragment : BaseFragment<FragmentYouBinding>() {
         }
     }
 
-    private fun setupViews() {
+    private fun intiViews() {
         val features = listOf(
             AccountFeature("Buy Again", FeatureDestination.BUY_AGAIN),
             AccountFeature("Recent Orders", FeatureDestination.RECENT_ORDERS),
@@ -108,6 +110,15 @@ class ProfileFragment : BaseFragment<FragmentYouBinding>() {
         binding.cartsButton.setOnClickListener {
             replaceFragment(R.id.fragment_container, CartsFragment.newInstance(), true)
         }
+        binding.settingsIcon.setOnClickListener {
+            val dialog = UserBottomSettingsSheetFragment.newInstance()
+            dialog.show(parentFragmentManager,dialog.tag)
+        }
+
+        binding.customerServiceButton.setOnClickListener{
+            val dialog = CommonBottomSheetFragment.newInstance("Call :9876543210","mailId : SStore@gmail.com")
+            dialog.show(parentFragmentManager,dialog.tag)
+        }
     }
 
     private fun handleOnClick(destination: FeatureDestination) {
@@ -115,7 +126,7 @@ class ProfileFragment : BaseFragment<FragmentYouBinding>() {
             FeatureDestination.BUY_AGAIN -> replaceFragment(R.id.fragment_container, ProductFragment.newInstance(),true)
             FeatureDestination.RECENT_ORDERS-> replaceFragment(R.id.fragment_container, ProductFragment.newInstance(),true)
             FeatureDestination.ORDERS -> replaceFragment(R.id.fragment_container, OrderFragment.newInstance(),true)
-            FeatureDestination.PROFILE -> replaceFragment(R.id.fragment_container, UserBottomSheetFragment.newInstance(),true)
+            FeatureDestination.PROFILE -> replaceFragment(R.id.fragment_container, UserDetailsFragment.newInstance(),true)
             FeatureDestination.CARTS -> replaceFragment(R.id.fragment_container, CartsFragment.newInstance(),true)
         }
     }

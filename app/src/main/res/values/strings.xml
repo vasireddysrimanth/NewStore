@@ -37,4 +37,12 @@
     <string name="your_account">Your Account</string>
     <string name="who_is_shopping">Who is Shopping?</string>
     <string name="sign_out">Sign Out</string>
+    <string name="notifications">Notifications</string>
+    <string name="permissions">Permissions</string>
+    <string name="default_purchase_settings">Default Purchase Settings</string>
+    <string name="legal_and_about">Legal and About</string>
+    <string name="app_settings">App Settings</string>
+    <string name="please_enable_notifications_to_stay_up_to_date">Please enable notifications to stay up to date.</string>
+    <string name="please_enable_necessary_permissions_e_g_storage_notifications_for_full_functionality">Please enable necessary permissions (e.g., storage, notifications) for full functionality.</string>
+    <string name="currently_there_are_no_default_purchase_preferences_configured">Currently, there are no default purchase preferences configured.</string>
 </resources>

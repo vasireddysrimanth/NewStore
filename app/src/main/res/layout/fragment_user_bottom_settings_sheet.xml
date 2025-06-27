@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:id="@+id/profileLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_settings"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/clearButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/baseline_clear_24"
+            android:tint="@android:color/black"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="#E0E0E0"
+        app:layout_constraintTop_toBottomOf="@+id/profileLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Content Area -->
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="12dp"
+        android:background="#FAFAFA"
+        android:padding="16dp">
+
+        <!-- First TextView -->
+        <TextView
+            android:id="@+id/notificationTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/notifications"
+            android:textStyle="normal"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="18sp"
+            android:textColor="#888888"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Second TextView -->
+        <TextView
+            android:id="@+id/permissionsTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/permissions"
+            android:textStyle="normal"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="18sp"
+            android:textColor="#888888"
+            android:layout_marginBottom="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#DDDDDD"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/defaultPurchaseSettingsTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/default_purchase_settings"
+            android:textStyle="normal"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="18sp"
+            android:textColor="#888888"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:id="@+id/legalAndAboutTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/legal_and_about"
+            android:textStyle="normal"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="18sp"
+            android:textColor="#888888" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

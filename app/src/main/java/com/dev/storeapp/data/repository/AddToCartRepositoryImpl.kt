@@ -13,6 +13,8 @@ class AddToCartRepositoryImpl @Inject constructor(
         addToCartLocalDataSource.insertToCart(addToCartEntity)
     }
 
+    override suspend fun upsertToCart(addToCartEntity: AddToCartEntity) = addToCartLocalDataSource.upsertToCart(addToCartEntity)
+
     override suspend fun getAllCarts(): Flow<List<AddToCartEntity>> {
         return addToCartLocalDataSource.getAllCarts()
     }

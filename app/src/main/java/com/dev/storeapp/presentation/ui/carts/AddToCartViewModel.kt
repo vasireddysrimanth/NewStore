@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
-
 @HiltViewModel
 class AddToCartViewModel @Inject constructor(
     private val addToCartUseCase: AddToCartUseCase
@@ -29,10 +28,21 @@ class AddToCartViewModel @Inject constructor(
     }
 
     fun insertToCart(addToCartEntity: AddToCartEntity) {
-       viewModelScope.launch {
+        viewModelScope.launch {
             addToCartUseCase.insertToCart(addToCartEntity)
-           _isInCart.value = true
-       }
+            _isInCart.value = true
+            // Refresh the cart list after insert
+            getAllCarts()
+        }
+    }
+
+    fun upsertToCart(addToCartEntity: AddToCartEntity) {
+        viewModelScope.launch {
+            addToCartUseCase.upsertToCart(addToCartEntity)
+            _isInCart.value = true
+            // Refresh the cart list after upsert - THIS WAS MISSING
+            getAllCarts()
+        }
     }
 
     private fun getAllCarts() {
@@ -56,6 +66,8 @@ class AddToCartViewModel @Inject constructor(
         viewModelScope.launch {
             addToCartUseCase.deleteCartById(id)
             _isInCart.value = false
+            // Refresh the cart list after delete
+            getAllCarts()
         }
     }
 
@@ -64,5 +76,4 @@ class AddToCartViewModel @Inject constructor(
             _isInCart.value = addToCartUseCase.isProductInCart(productId)
         }
     }
-
 }

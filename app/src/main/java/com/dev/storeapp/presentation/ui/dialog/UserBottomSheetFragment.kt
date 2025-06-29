@@ -53,7 +53,7 @@ class UserBottomSheetFragment : BottomSheetDialogFragment() {
                         binding.textViewUserName.text = it.data.username
                         binding.textViewSignedAsFull.text = "Signed in as: ${it.data.email}"
                         Glide.with(requireContext())
-                            .load(it.data.profileImagePath?.let { File(it) })
+                            .load(it.data.profileImagePath?.let { path -> File(path) })
                             .placeholder(R.drawable.ic_launcher_background)
                             .error(R.drawable.ic_launcher_background)
                             .into(binding.productImage)
@@ -67,24 +67,30 @@ class UserBottomSheetFragment : BottomSheetDialogFragment() {
     private fun initViews() {
         binding.signOut.setOnClickListener {
             dismiss()
-            replaceFragment(R.id.fragment_container, LoginFragment.newInstance(), false)
+            navigateToFragment(LoginFragment.newInstance(), false)
         }
-        binding.clearButton.setOnClickListener { dismiss() }
+
+        binding.clearButton.setOnClickListener {
+            dismiss()
+        }
+
         binding.textViewView.setOnClickListener {
             dismiss()
-            replaceFragment(R.id.fragment_container, UserDetailsFragment.newInstance(), false)
+            navigateToFragment(UserDetailsFragment.newInstance(), true)
         }
     }
 
-    private fun replaceFragment(
-        containerId: Int,
-        fragment: Fragment,
-        addToBackStack: Boolean = false,
-        tag: String? = null
-    ) {
+    private fun navigateToFragment(fragment: Fragment, addToBackStack: Boolean = false) {
         activity?.supportFragmentManager?.commit(allowStateLoss = true) {
-            replace(containerId, fragment, tag)
-            if (addToBackStack) addToBackStack(tag)
+            replace(R.id.fragment_container, fragment)
+            if (addToBackStack) {
+                addToBackStack(fragment::class.java.simpleName)
+            }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

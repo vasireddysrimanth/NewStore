@@ -5,8 +5,17 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
     tools:context=".auth.LoginFragment">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FF1565C0" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#801976D2" />
 
     <TextView
         android:id="@+id/app_title"
@@ -15,8 +24,12 @@
         android:text="StoreApp"
         android:textSize="32sp"
         android:textStyle="bold"
-        android:textColor="@android:color/white"
+        android:textColor="#FFFFFF"
         android:layout_marginBottom="32dp"
+        android:shadowColor="#33000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4"
         app:layout_constraintBottom_toTopOf="@id/login_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -27,9 +40,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp"
-        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="16dp"
+        app:cardBackgroundColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,9 +58,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Welcome Back"
-                android:textSize="24sp"
+                android:textSize="28sp"
                 android:textStyle="bold"
-                android:textColor="#333333"
+                android:textColor="#1A1A1A"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,13 +84,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Email Address"
-                app:boxStrokeColor="#2196F3"
-                app:hintTextColor="#2196F3"
+                app:boxStrokeColor="#1976D2"
+                app:hintTextColor="#1976D2"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/login_subtitle"
                 app:startIconDrawable="@drawable/baseline_email_24"
-                app:startIconTint="#666666">
+                app:startIconTint="#1976D2">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_input"
@@ -85,6 +102,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     android:textSize="16sp"
+                    android:textColor="#1A1A1A"
                     android:paddingStart="48dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,14 +112,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:hint="Password"
-                app:boxStrokeColor="#2196F3"
-                app:hintTextColor="#2196F3"
+                app:boxStrokeColor="#1976D2"
+                app:hintTextColor="#1976D2"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/email_input_layout"
                 app:passwordToggleEnabled="true"
+                app:passwordToggleTint="#1976D2"
                 app:startIconDrawable="@drawable/baseline_lock_24"
-                app:startIconTint="#666666">
+                app:startIconTint="#1976D2">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password_input"
@@ -109,19 +132,22 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:textSize="16sp"
-                    android:paddingStart="48dp" /> </com.google.android.material.textfield.TextInputLayout>
+                    android:textColor="#1A1A1A"
+                    android:paddingStart="48dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/login_button"
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="#2196F3"
+                android:backgroundTint="#1976D2"
                 android:text="@string/sign_in"
-                android:textColor="@android:color/white"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:cornerRadius="8dp"
+                app:cornerRadius="12dp"
+                app:elevation="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/password_input_layout" />
@@ -131,8 +157,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/forgot_password"
-                android:textColor="#2196F3"
+                android:textColor="#1976D2"
                 android:textSize="14sp"
+                android:textStyle="bold"
                 android:layout_marginBottom="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -164,8 +191,8 @@
                 android:id="@+id/signup_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign Up"
-                android:textColor="#2196F3"
+                android:text="@string/sign_up"
+                android:textColor="#1976D2"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"

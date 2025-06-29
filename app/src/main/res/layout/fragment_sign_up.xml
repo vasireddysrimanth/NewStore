@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
+    android:background="#1976D2"
     tools:context=".presentation.ui.auth.SignUpFragment">
 
     <TextView
         android:id="@+id/app_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="StoreApp"
-        android:textSize="32sp"
+        android:text="🌊 StoreApp"
+        android:textSize="36sp"
         android:textStyle="bold"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="32dp"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="40dp"
+        android:elevation="8dp"
+        android:shadowColor="#0D47A1"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowRadius="12"
+        android:letterSpacing="0.05"
         app:layout_constraintBottom_toTopOf="@id/signup_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -25,11 +31,13 @@
         android:id="@+id/signup_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp"
-        app:cardBackgroundColor="@android:color/white"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="16dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:strokeColor="#E3F2FD"
+        app:strokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,10 +53,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Create Account"
-                android:textSize="24sp"
+                android:textSize="28sp"
                 android:textStyle="bold"
-                android:textColor="#333333"
+                android:textColor="#0D47A1"
                 android:layout_marginBottom="8dp"
+                android:letterSpacing="0.02"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,8 +68,9 @@
                 android:layout_height="wrap_content"
                 android:text="Join us to explore amazing products"
                 android:textSize="16sp"
-                android:textColor="#666666"
+                android:textColor="#546E7A"
                 android:layout_marginBottom="32dp"
+                android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/signup_title" />
@@ -73,11 +83,16 @@
                 android:hint="Username"
                 app:boxStrokeColor="#2196F3"
                 app:hintTextColor="#2196F3"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/signup_subtitle"
                 app:startIconDrawable="@drawable/baseline_person_add_alt_1_24"
-                app:startIconTint="#666666">
+                app:startIconTint="#2196F3"
+                app:boxStrokeWidth="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/username_input"
@@ -85,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:textSize="16sp"
+                    android:textColor="#333333"
                     android:paddingStart="48dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,11 +112,16 @@
                 android:hint="Gender"
                 app:boxStrokeColor="#2196F3"
                 app:hintTextColor="#2196F3"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/username_input_layout"
                 app:startIconDrawable="@drawable/outline_wc_24"
-                app:startIconTint="#666666">
+                app:startIconTint="#2196F3"
+                app:boxStrokeWidth="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/gender_input"
@@ -108,6 +129,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:textSize="16sp"
+                    android:textColor="#333333"
                     android:paddingStart="48dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,11 +141,16 @@
                 android:hint="Email Address"
                 app:boxStrokeColor="#2196F3"
                 app:hintTextColor="#2196F3"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/gender_input_layout"
                 app:startIconDrawable="@drawable/baseline_email_24"
-                app:startIconTint="#666666">
+                app:startIconTint="#2196F3"
+                app:boxStrokeWidth="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_input"
@@ -131,6 +158,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     android:textSize="16sp"
+                    android:textColor="#333333"
                     android:paddingStart="48dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,12 +170,17 @@
                 android:hint="Password"
                 app:boxStrokeColor="#2196F3"
                 app:hintTextColor="#2196F3"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/email_input_layout"
                 app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/baseline_lock_24"
-                app:startIconTint="#666666">
+                app:startIconTint="#2196F3"
+                app:boxStrokeWidth="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password_input"
@@ -155,6 +188,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:textSize="16sp"
+                    android:textColor="#333333"
                     android:paddingStart="48dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,10 +199,11 @@
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="#2196F3"
                 android:text="Sign Up"
-                android:textColor="@android:color/white"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:cornerRadius="8dp"
+                android:elevation="6dp"
+                app:cornerRadius="28dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/password_input_layout" />
@@ -204,10 +239,15 @@
                 android:textColor="#2196F3"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                android:padding="8dp"
+                android:background="#E3F2FD"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/login_text"
                 app:layout_constraintTop_toBottomOf="@id/divider" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

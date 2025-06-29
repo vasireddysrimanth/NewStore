@@ -14,6 +14,8 @@ class AddToCartUseCase @Inject constructor(
 
     suspend fun getAllCarts() = addToCartRepository.getAllCarts()
 
+    suspend fun upsertToCart(addToCartEntity: AddToCartEntity) = addToCartRepository.upsertToCart(addToCartEntity)
+
     suspend fun deleteAllCarts() = addToCartRepository.deleteAllCarts()
 
     suspend fun deleteCartById(id: Int) = addToCartRepository.deleteCartById(id)

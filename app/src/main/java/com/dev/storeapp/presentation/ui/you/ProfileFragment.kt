@@ -89,8 +89,8 @@ class ProfileFragment : BaseFragment<FragmentYouBinding>() {
         binding.accountRecyclerView.adapter = adapter
 
         binding.textViewUserName.setOnClickListener {
-            UserBottomSheetFragment.newInstance()
-                .show(parentFragmentManager, UserBottomSheetFragment.TAG)
+                 val dialog = UserBottomSheetFragment.newInstance()
+                dialog.show(parentFragmentManager, dialog.tag)
         }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

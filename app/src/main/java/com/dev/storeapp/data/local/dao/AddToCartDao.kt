@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Upsert
 import com.dev.storeapp.app.constants.DBConstants
 import com.dev.storeapp.data.local.entity.AddToCartEntity
 import kotlinx.coroutines.flow.Flow
@@ -18,6 +19,9 @@ interface AddToCartDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAddToCart(addToCartEntity: AddToCartEntity)
+
+    @Upsert
+    suspend fun upsertAddToCart(addToCartEntity: AddToCartEntity)
 
     @Query("DELETE FROM ${DBConstants.TABLE_ADD_TO_CART}")
     suspend fun deleteAllCarts()

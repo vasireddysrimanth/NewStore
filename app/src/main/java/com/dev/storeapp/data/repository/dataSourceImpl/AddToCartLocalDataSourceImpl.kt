@@ -18,6 +18,8 @@ class AddToCartLocalDataSourceImpl @Inject constructor(
         addToCartDao.insertAddToCart(addToCartEntity)
     }
 
+    override suspend fun upsertToCart(addToCartEntity: AddToCartEntity) = addToCartDao.upsertAddToCart(addToCartEntity)
+
     override suspend fun deleteAllCarts() {
         addToCartDao.deleteAllCarts()
     }

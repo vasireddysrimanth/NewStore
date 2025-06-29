@@ -44,16 +44,24 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
         // Define your view holder here
         fun setData(product: ProductEntity){
             binding.apply {
-                productName.text = product.title
-                priceTextView.text = product.price.toString()
+                productTitle.text = product.title
+                productBrand.text = product.brand
+                productColor.text = product.color
+                productBrand.text = product.brand
+                productModel.text = product.model
+                productDiscount.text = product.discount.toString()
+                productPrice.text = product.price.toString()
                 Glide.with(itemView.context)
                     .load(product.image)
                     .placeholder(com.dev.storeapp.R.drawable.ic_launcher_foreground)
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(imageView)
+                    .into(productImageView)
                 root.setOnClickListener {
                     itemClickListener(product)
+                }
+                addToCartButton.setOnClickListener {
+                    onAddToCartClick?.invoke(product)
                 }
             }
 
@@ -64,5 +72,10 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
     private var itemClickListener :((ProductEntity) ->Unit) = {}
     fun setOnItemClickListener(listener :((ProductEntity) ->Unit)){
                 itemClickListener = listener
+    }
+
+    private var onAddToCartClick: ((ProductEntity) -> Unit)? = null
+    fun setOnAddToCartClickListener(listener: (ProductEntity) -> Unit) {
+        onAddToCartClick = listener
     }
 }

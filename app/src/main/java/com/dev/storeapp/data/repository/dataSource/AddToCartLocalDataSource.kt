@@ -9,6 +9,8 @@ interface AddToCartLocalDataSource {
 
     suspend fun insertToCart(addToCartEntity: AddToCartEntity)
 
+    suspend fun upsertToCart(addToCartEntity: AddToCartEntity)
+
     suspend fun deleteAllCarts()
 
     suspend fun deleteCartById(id: Int)

@@ -45,4 +45,5 @@
     <string name="please_enable_notifications_to_stay_up_to_date">Please enable notifications to stay up to date.</string>
     <string name="please_enable_necessary_permissions_e_g_storage_notifications_for_full_functionality">Please enable necessary permissions (e.g., storage, notifications) for full functionality.</string>
     <string name="currently_there_are_no_default_purchase_preferences_configured">Currently, there are no default purchase preferences configured.</string>
+    <string name="sign_up">Sign Up</string>
 </resources>

@@ -47,5 +47,6 @@ fun AddToCartEntity.asProductModel() = Product(
     image = image ?: "",
     model = model ?: "",
     price = price ?: 0.0,
+    quantity = quantity ?: 0
 )
 

@@ -1,49 +1,38 @@
 package com.dev.storeapp.presentation.ui.checkout
 
-import android.graphics.Canvas
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.viewModels
+import com.dev.payment.OnPaymentConfirmedListener
+import com.dev.payment.payment.PaymentNewFragment
 import com.dev.storeapp.R
 import com.dev.storeapp.app.base.BaseFragment
 import com.dev.storeapp.data.model.Product
+import com.dev.storeapp.data.model.mapToPaymentProducts
+import com.dev.storeapp.data.model.mapToStoreProducts
 import com.dev.storeapp.databinding.FragmentCheckOutBinding
 import com.dev.storeapp.presentation.adapter.CheckOutAdapter
-import com.dev.storeapp.presentation.ui.payment.PaymentFragment
+import com.dev.storeapp.presentation.ui.carts.AddToCartViewModel
+import com.dev.storeapp.presentation.ui.order.OrderDetailsFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 @AndroidEntryPoint
-class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>() {
+class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(), OnPaymentConfirmedListener {
 
+    private val cartViewModel: AddToCartViewModel by viewModels()
     private var product: Product? = null
     private var allProducts: List<Product> = emptyList()
+    private var currentProductList = mutableListOf<Product>()
     private var checkOutAdapter: CheckOutAdapter? = null
 
-    // Mutable list to keep the latest product list (edited, deleted)
-    private var currentProductList = mutableListOf<Product>()
-
     companion object {
-        fun newInstance() = CheckOutFragment()
-
-        fun newInstance(product: Product): CheckOutFragment {
-            return CheckOutFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable("product", product)
-                }
-            }
-        }
-
-        fun newInstance(products: List<Product>): CheckOutFragment {
-            return CheckOutFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelableArrayList("products", ArrayList(products))
-                }
+        fun newInstance(product: Product? = null, products: List<Product>? = null) = CheckOutFragment().apply {
+            arguments = Bundle().apply {
+                product?.let { putParcelable("product", it) }
+                products?.let { putParcelableArrayList("products", ArrayList(it)) }
             }
         }
     }
@@ -56,106 +45,54 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>() {
         }
     }
 
-    override fun getBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        bundle: Bundle?
-    ): FragmentCheckOutBinding {
-        return FragmentCheckOutBinding.inflate(inflater, container, false)
-    }
+    override fun getBinding(inflater: LayoutInflater, container: ViewGroup?, bundle: Bundle?) =
+        FragmentCheckOutBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupAdapter()
+        setupToolbar()
+        setupConfirmButton()
+    }
 
-        checkOutAdapter = CheckOutAdapter()
+    private fun setupAdapter() {
+        checkOutAdapter = CheckOutAdapter { updatedList ->
+            currentProductList = updatedList.toMutableList()
+            updateTotalAmount()
+        }
         binding.recyclerView.adapter = checkOutAdapter
-        val itemsToDisplay = if (allProducts.isNotEmpty()) allProducts else product?.let { listOf(it) } ?: emptyList()
-        currentProductList = itemsToDisplay.toMutableList()
-        checkOutAdapter?.differ?.submitList(currentProductList.toList())
-        updateTotalAmount(currentProductList)
+        currentProductList = (if (allProducts.isNotEmpty()) allProducts else product?.let { listOf(it) } ?: emptyList()).toMutableList()
+        checkOutAdapter?.differ?.submitList(currentProductList)
+        updateTotalAmount()
+    }
 
-        // Back button listener
-        binding.checkoutToolbarBackButton.setOnClickListener {
-            goBack()
-        }
+    private fun setupToolbar() {
+        binding.checkoutToolbarBackButton.setOnClickListener { goBack() }
+    }
 
+    private fun setupConfirmButton() {
         binding.confirmButton.setOnClickListener {
-            replaceFragment(  R.id.fragment_container,  PaymentFragment.newInstance(currentProductList), true)
-        }
-
-        attachSwipeGestures()
-    }
-
-    private fun attachSwipeGestures() {
-        val swipeCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean = false
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
-
-                when (direction) {
-                    ItemTouchHelper.LEFT -> {
-                        // Remove item from currentProductList and update adapter + UI
-                        if (position >= 0 && position < currentProductList.size) {
-                            currentProductList.removeAt(position)
-                            checkOutAdapter?.differ?.submitList(currentProductList.toList())
-                            updateTotalAmount(currentProductList)
-                            Snackbar.make(binding.root, "Item Deleted", Snackbar.LENGTH_SHORT).show()
-                        }
-                    }
-
-                    ItemTouchHelper.RIGHT -> {
-                        // Edit quantity for the item
-                        if (position >= 0 && position < currentProductList.size) {
-                            val selectedProduct = currentProductList[position]
-                            // Assume DialogUtils.showQuantityDialog takes context, current qty, and returns new qty in callback
-                            DialogUtils.showQuantityDialog(requireContext(), selectedProduct.quantity) { newQty ->
-                                val updatedProduct = selectedProduct.copy(quantity = newQty)
-                                currentProductList[position] = updatedProduct
-                                checkOutAdapter?.differ?.submitList(currentProductList.toList())
-                                updateTotalAmount(currentProductList)
-                            }
-                        }
-                    }
-                }
-            }
-
-            override fun onChildDraw(
-                c: Canvas,
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                dX: Float,
-                dY: Float,
-                actionState: Int,
-                isCurrentlyActive: Boolean
-            ) {
-                RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                    .addSwipeLeftLabel("Delete")
-                    .addSwipeLeftBackgroundColor(Color.RED)
-                    .addSwipeLeftActionIcon(R.drawable.baseline_delete_24)
-                    .setSwipeLeftLabelColor(Color.WHITE)
-                    .setSwipeLeftActionIconTint(Color.WHITE)
-                    .addSwipeRightLabel("Edit")
-                    .addSwipeRightBackgroundColor(Color.GREEN)
-                    .addSwipeRightActionIcon(R.drawable.outline_landscape_2_edit_24)
-                    .setSwipeRightLabelColor(Color.WHITE)
-                    .setSwipeRightActionIconTint(Color.WHITE)
-                    .create()
-                    .decorate()
-
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+            if (currentProductList.isEmpty()) {
+                Snackbar.make(binding.root, "No items to checkout", Snackbar.LENGTH_SHORT).show()
+            } else {
+                navigateToPayment()
             }
         }
-
-        ItemTouchHelper(swipeCallback).attachToRecyclerView(binding.recyclerView)
     }
 
-    private fun updateTotalAmount(products: List<Product>) {
-        val total = products.sumOf { it.price.toDouble() * it.quantity }
+    private fun navigateToPayment() {
+        val paymentFragment = PaymentNewFragment.newInstance(mapToPaymentProducts(currentProductList))
+        paymentFragment.setOnPaymentConfirmedListener(this)
+        replaceFragment(R.id.fragment_container, paymentFragment, true)
+    }
+
+    override fun onPaymentConfirmed(products: List<com.dev.payment.payment.Product>) {
+        cartViewModel.deleteAllCarts()
+        replaceFragment(R.id.fragment_container, OrderDetailsFragment.newInstance(mapToStoreProducts(products)), true)
+    }
+
+    private fun updateTotalAmount() {
+        val total = currentProductList.sumOf { it.price.toDouble() * it.quantity }
         binding.totalAmount.text = "₹%.2f".format(total)
     }
 

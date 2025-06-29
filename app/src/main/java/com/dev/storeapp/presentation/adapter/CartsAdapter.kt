@@ -46,7 +46,6 @@ class CartsAdapter : RecyclerView.Adapter<CartsAdapter.MyViewHolder>() {
                 txtColorModel.text = "${product.color} | ${product.model}"
                 txtBrand.text = "Brand: ${product.brand}"
                 txtDiscount.text = "${product.discount}% off"
-                txtPrice.text = product.price.toString()
 
                 // Load product image
                 Glide.with(itemView.context)
@@ -74,6 +73,7 @@ class CartsAdapter : RecyclerView.Adapter<CartsAdapter.MyViewHolder>() {
             binding.apply {
                 val quantity = product.quantity ?: 1
                 txtQuantity.text = quantity.toString()
+                txtPrice.text = product.price?.times(quantity).toString()
                 // Handle decrease button state and click
                 btnDecrease.isEnabled = quantity > 1
                 btnDecrease.alpha = if (quantity > 1) 1.0f else 0.5f

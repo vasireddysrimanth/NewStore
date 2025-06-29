@@ -49,7 +49,7 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
                 productColor.text = product.color
                 productBrand.text = product.brand
                 productModel.text = product.model
-                productDiscount.text = product.discount.toString()
+                productDiscount.text = "${product.discount} % off"
                 productPrice.text = product.price.toString()
                 Glide.with(itemView.context)
                     .load(product.image)

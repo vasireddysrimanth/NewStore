@@ -16,23 +16,36 @@ class CheckOutAdapter(
     private val onQuantityChanged: (List<Product>) -> Unit
 ) : RecyclerView.Adapter<CheckOutAdapter.MyViewHolder>() {
 
-    private val differ = AsyncListDiffer(this, object : DiffUtil.ItemCallback<Product>() {
-        override fun areItemsTheSame(oldItem: Product, newItem: Product) = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldItem: Product, newItem: Product) = oldItem == newItem
-    })
+    private val diffCallback = object : DiffUtil.ItemCallback<Product>() {
+        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        MyViewHolder(ItemCheckoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(differ.currentList[position], position, differ.currentList.toMutableList(), onQuantityChanged)
+        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+            return oldItem == newItem
+        }
     }
 
-    override fun getItemCount() = differ.currentList.size
+    val differ = AsyncListDiffer(this, diffCallback)
 
-    class MyViewHolder(private val binding: ItemCheckoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val binding = ItemCheckoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(binding)
+    }
 
-        fun bind(
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val product = differ.currentList[position]
+        holder.setData(product, position, differ.currentList.toMutableList(), onQuantityChanged)
+    }
+
+    override fun getItemCount(): Int {
+        return differ.currentList.size
+    }
+
+    class MyViewHolder(private val binding: ItemCheckoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun setData(
             product: Product,
             position: Int,
             currentList: MutableList<Product>,
@@ -40,8 +53,10 @@ class CheckOutAdapter(
         ) {
             binding.apply {
                 itemName.text = product.title
-                txtQuantity.text = product.quantity.toString()
-                updateTotalPrice(product.price, product.quantity)
+
+                var quantity = product.quantity
+                txtQuantity.text = quantity.toString()
+                updateTotalPrice(product.price, quantity)
 
                 Glide.with(itemView.context)
                     .load(product.image)
@@ -50,40 +65,40 @@ class CheckOutAdapter(
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(itemImage)
 
-                btnDecrease.apply {
-                    isEnabled = product.quantity > 1
-                    alpha = if (isEnabled) 1.0f else 0.5f
-                    setOnClickListener { updateQuantity(product, position, currentList, onQuantityChanged, -1) }
+                btnDecrease.isEnabled = quantity > 1
+                btnDecrease.alpha = if (quantity > 1) 1.0f else 0.5f
+
+                btnDecrease.setOnClickListener {
+                    if (quantity > 1) {
+                        quantity--
+                        txtQuantity.text = quantity.toString()
+                        updateTotalPrice(product.price, quantity)
+                        btnDecrease.isEnabled = quantity > 1
+                        btnDecrease.alpha = if (quantity > 1) 1.0f else 0.5f
+
+                        currentList[position] = product.copy(quantity = quantity)
+                        onQuantityChanged(currentList)
+                    }
                 }
 
-                btnIncrease.setOnClickListener { updateQuantity(product, position, currentList, onQuantityChanged, 1) }
+                btnIncrease.setOnClickListener {
+                    quantity++
+                    txtQuantity.text = quantity.toString()
+                    updateTotalPrice(product.price, quantity)
+                    btnDecrease.isEnabled = quantity > 1
+                    btnDecrease.alpha = if (quantity > 1) 1.0f else 0.5f
 
-                quantityContainer.visibility = if (product.quantity > 0) View.VISIBLE else View.GONE
-            }
-        }
-
-        private fun updateQuantity(
-            product: Product,
-            position: Int,
-            currentList: MutableList<Product>,
-            onQuantityChanged: (List<Product>) -> Unit,
-            change: Int
-        ) {
-            val newQuantity = product.quantity + change
-            binding.apply {
-                txtQuantity.text = newQuantity.toString()
-                updateTotalPrice(product.price, newQuantity)
-                btnDecrease.apply {
-                    isEnabled = newQuantity > 1
-                    alpha = if (isEnabled) 1.0f else 0.5f
+                    currentList[position] = product.copy(quantity = quantity)
+                    onQuantityChanged(currentList)
                 }
+
+                quantityContainer.visibility = if (quantity > 0) View.VISIBLE else View.GONE
             }
-            currentList[position] = product.copy(quantity = newQuantity)
-            onQuantityChanged(currentList)
         }
 
         private fun updateTotalPrice(pricePerItem: Double, quantity: Int) {
-            binding.itemPrice.text = "₹%.2f".format(pricePerItem * quantity)
+            val totalPrice = pricePerItem * quantity
+            binding.itemPrice.text = "₹%.2f".format(totalPrice)
         }
     }
 }

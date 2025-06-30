@@ -22,17 +22,30 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(), OnPaymentConfirmedListener {
 
-    private val cartViewModel: AddToCartViewModel by viewModels()
+    private val cartViewModel : AddToCartViewModel by viewModels()
+
     private var product: Product? = null
     private var allProducts: List<Product> = emptyList()
-    private var currentProductList = mutableListOf<Product>()
     private var checkOutAdapter: CheckOutAdapter? = null
 
+    private var currentProductList = mutableListOf<Product>()
+
     companion object {
-        fun newInstance(product: Product? = null, products: List<Product>? = null) = CheckOutFragment().apply {
-            arguments = Bundle().apply {
-                product?.let { putParcelable("product", it) }
-                products?.let { putParcelableArrayList("products", ArrayList(it)) }
+        fun newInstance() = CheckOutFragment()
+
+        fun newInstance(product: Product): CheckOutFragment {
+            return CheckOutFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable("product", product)
+                }
+            }
+        }
+
+        fun newInstance(products: List<Product>): CheckOutFragment {
+            return CheckOutFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelableArrayList("products", ArrayList(products))
+                }
             }
         }
     }
@@ -45,54 +58,65 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(), OnPaymentConfi
         }
     }
 
-    override fun getBinding(inflater: LayoutInflater, container: ViewGroup?, bundle: Bundle?) =
-        FragmentCheckOutBinding.inflate(inflater, container, false)
+    override fun getBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        bundle: Bundle?
+    ): FragmentCheckOutBinding {
+        return FragmentCheckOutBinding.inflate(inflater, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupAdapter()
-        setupToolbar()
-        setupConfirmButton()
-    }
 
-    private fun setupAdapter() {
         checkOutAdapter = CheckOutAdapter { updatedList ->
             currentProductList = updatedList.toMutableList()
-            updateTotalAmount()
+            updateTotalAmount(currentProductList)
         }
+
         binding.recyclerView.adapter = checkOutAdapter
-        currentProductList = (if (allProducts.isNotEmpty()) allProducts else product?.let { listOf(it) } ?: emptyList()).toMutableList()
-        checkOutAdapter?.differ?.submitList(currentProductList)
-        updateTotalAmount()
-    }
 
-    private fun setupToolbar() {
-        binding.checkoutToolbarBackButton.setOnClickListener { goBack() }
-    }
+        val itemsToDisplay = if (allProducts.isNotEmpty()) allProducts else product?.let { listOf(it) } ?: emptyList()
+        currentProductList = itemsToDisplay.toMutableList()
+        checkOutAdapter?.differ?.submitList(currentProductList.toList())
+        updateTotalAmount(currentProductList)
 
-    private fun setupConfirmButton() {
-        binding.confirmButton.setOnClickListener {
-            if (currentProductList.isEmpty()) {
-                Snackbar.make(binding.root, "No items to checkout", Snackbar.LENGTH_SHORT).show()
-            } else {
-                navigateToPayment()
-            }
+        binding.checkoutToolbarBackButton.setOnClickListener {
+            goBack()
         }
+
+        binding.confirmButton.setOnClickListener {
+            navigateToPayment()
+        }
+
     }
+
 
     private fun navigateToPayment() {
-        val paymentFragment = PaymentNewFragment.newInstance(mapToPaymentProducts(currentProductList))
+        if (currentProductList.isEmpty()) {
+            Snackbar.make(binding.root, "No items to checkout", Snackbar.LENGTH_SHORT).show()
+            return
+        }
+        val paymentProducts = mapToPaymentProducts(currentProductList)
+        val paymentFragment = PaymentNewFragment.newInstance(paymentProducts)
         paymentFragment.setOnPaymentConfirmedListener(this)
         replaceFragment(R.id.fragment_container, paymentFragment, true)
     }
 
     override fun onPaymentConfirmed(products: List<com.dev.payment.payment.Product>) {
-        cartViewModel.deleteAllCarts()
-        replaceFragment(R.id.fragment_container, OrderDetailsFragment.newInstance(mapToStoreProducts(products)), true)
+        val storeProducts = mapToStoreProducts(products)
+        cartViewModel.deleteAllCarts() //for clear
+
+        replaceFragment(
+            R.id.fragment_container,
+            OrderDetailsFragment.newInstance(storeProducts),
+            true
+        )
     }
 
-    private fun updateTotalAmount() {
-        val total = currentProductList.sumOf { it.price.toDouble() * it.quantity }
+
+    private fun updateTotalAmount(products: List<Product>) {
+        val total = products.sumOf { it.price.toDouble() * it.quantity }
         binding.totalAmount.text = "₹%.2f".format(total)
     }
 

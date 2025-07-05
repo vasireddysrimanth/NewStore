@@ -1,0 +1,32 @@
+pluginManagement {
+    repositories {
+        google()
+        gradlePluginPortal()
+        mavenCentral()
+        maven {
+            url = uri("https://maven.pkg.github.com/vasireddysrimanth/modules")
+            credentials {
+                username = providers.gradleProperty("gpr.user").getOrElse("")
+                password = providers.gradleProperty("gpr.key").getOrElse("")
+            }
+        }
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url = uri("https://maven.pkg.github.com/vasireddysrimanth/modules")
+            credentials {
+                username = providers.gradleProperty("gpr.user").getOrElse("")
+                password = providers.gradleProperty("gpr.key").getOrElse("")
+            }
+        }
+    }
+}
+
+rootProject.name = "StoreApp"
+include ':app'

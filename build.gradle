@@ -3,6 +3,14 @@ buildscript {
     repositories {
         google()  // Adds the Google repository to fetch dependencies
         mavenCentral()  // Optional, depending on your project needs
+
+        maven {
+            url = uri("https://maven.pkg.github.com/vasireddysrimanth/modules")
+            credentials {
+                username = project.findProperty("gpr.user") ?: ""
+                password = project.findProperty("gpr.key") ?: ""
+            }
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.4.1' // Add the Gradle plugin version (update it as needed)

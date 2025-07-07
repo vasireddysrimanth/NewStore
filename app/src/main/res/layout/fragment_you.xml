@@ -4,256 +4,312 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp">
+    android:layout_margin="5dp"
+    android:background="@color/profile_main_background">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
+    <!-- Enhanced Search View with Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/searchCard"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
         android:layout_marginTop="8dp"
-        app:queryHint="Search Anything"
-        android:background="@drawable/bg_outline_button"
-        app:layout_constraintStart_toStartOf="parent"
+        android:elevation="4dp"
+        app:cardBackgroundColor="@color/search_card_background"
+        app:cardCornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:queryBackground="@android:color/transparent"
-        android:gravity="center_vertical"
-        app:iconifiedByDefault="false" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="4dp"
+            android:gravity="center_vertical"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@android:color/transparent"
+            app:queryHint="Search Anything" />
+
+    </androidx.cardview.widget.CardView>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/searchView"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/searchCard">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!--User Layout-->
-            <LinearLayout
-                android:id="@+id/profileLayout"
+            <!--Enhanced User Profile Header-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/profileCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                android:gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:elevation="3dp"
+                app:cardBackgroundColor="@color/profile_header_background"
+                app:cardCornerRadius="16dp"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/product_image"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/ic_launcher_background"
-                    app:shapeAppearance="@style/ShapeAppearance.Material3.Circular.Image" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:textSize="20sp"
-                    android:text="Hello," />
-
-                <TextView
-                    android:id="@+id/textViewUserName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:textSize="20sp"
-                    android:textColor="@color/purple_700"
-                    android:text="@string/users"
-                    android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
-                    android:drawableTint="@color/purple_700"
-                    android:drawablePadding="8dp" />
-
-                <!-- Spacer pushes the icon to the end -->
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/settingsIcon"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/baseline_settings_24"
-                    android:tint="@android:color/black" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/profileLayout"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="#E0E0E0" />
-
-            <!--Orders Layout-->
-            <LinearLayout
-                android:id="@+id/ordersLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/divider"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/your_orders"
-                    android:textSize="20sp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="check your Orders"
-                    android:textStyle="normal"
-                    android:textSize="16sp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:textColor="@color/black" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/orderButton"
+                <LinearLayout
+                    android:id="@+id/profileLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:padding="10dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/your_orders"
-                    style="@style/App.OutlineButton.Default1" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/divider1"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/ordersLayout"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="#E0E0E0" />
-
-            <!--Carts Layout-->
-            <LinearLayout
-                android:id="@+id/cartsLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/divider1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/your_carts"
-                    android:textSize="20sp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/check_your_carts"
-                    android:textStyle="normal"
-                    android:textSize="16sp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:textColor="@color/black" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/cartsButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:padding="10dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/cart_items"
-                    style="@style/App.OutlineButton.Default1" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/cartsLayout"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="#E0E0E0" />
-
-            <!--Account Details Layout-->
-            <LinearLayout
-                android:id="@+id/yourAccountLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/divider2"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/your_account"
-                    android:textSize="20sp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/accountRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="75dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:clipToPadding="false"
-                    android:overScrollMode="always"
-                    tools:listitem="@layout/item_your_account"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-            </LinearLayout>
+                    android:padding="16dp">
 
-            <View
-                android:id="@+id/divider3"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/yourAccountLayout"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="#E0E0E0" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/product_image"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/ic_launcher_background"
+                        app:shapeAppearance="@style/ShapeAppearance.Material3.Circular.Image"
+                        app:strokeColor="@color/profile_image_border"
+                        app:strokeWidth="2dp" />
 
-            <LinearLayout
-                android:id="@+id/customerServiceLayout"
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hello,"
+                            android:textColor="@color/profile_greeting_text"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/textViewUserName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="@color/profile_accent_color"
+                            android:text="@string/users"
+                            android:textColor="@color/profile_username_text"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/settingsIcon"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/baseline_settings_24"
+                        android:tint="@color/settings_icon_tint" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Enhanced Orders Section -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ordersCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/divider3"
-                android:orientation="vertical">
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:elevation="2dp"
+                app:cardBackgroundColor="@color/section_card_background"
+                app:cardCornerRadius="14dp"
+                app:layout_constraintTop_toBottomOf="@+id/profileCard">
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/ordersLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:textStyle="bold"
-                    android:text="@string/need_your_help" />
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/customerServiceButton"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/your_orders"
+                        android:textColor="@color/section_title_text"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="12dp"
+                        android:text="check your Orders"
+                        android:textColor="@color/section_subtitle_text"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/orderButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:padding="10dp"
+                        android:text="@string/your_orders"
+                        app:backgroundTint="@color/button_background"
+                        app:cornerRadius="12dp"
+                        app:strokeColor="@color/button_stroke"
+                        app:strokeWidth="1dp"
+                        style="@style/Widget.Material3.Button.OutlinedButton" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Enhanced Carts Section -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cartsCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:elevation="2dp"
+                app:cardBackgroundColor="@color/section_card_background"
+                app:cardCornerRadius="14dp"
+                app:layout_constraintTop_toBottomOf="@+id/ordersCard">
+
+                <LinearLayout
+                    android:id="@+id/cartsLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:padding="10dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="@string/visit_customer_service"
-                    style="@style/App.OutlineButton.Default1" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/your_carts"
+                        android:textColor="@color/section_title_text"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="12dp"
+                        android:text="@string/check_your_carts"
+                        android:textColor="@color/section_subtitle_text"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/cartsButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:padding="10dp"
+                        android:text="@string/cart_items"
+                        app:backgroundTint="@color/button_background"
+                        app:cornerRadius="12dp"
+                        app:strokeColor="@color/button_stroke"
+                        app:strokeWidth="1dp"
+                        style="@style/Widget.Material3.Button.OutlinedButton" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Enhanced Account Details Section -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/accountCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:elevation="2dp"
+                app:cardBackgroundColor="@color/section_card_background"
+                app:cardCornerRadius="14dp"
+                app:layout_constraintTop_toBottomOf="@+id/cartsCard">
+
+                <LinearLayout
+                    android:id="@+id/yourAccountLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/your_account"
+                        android:textColor="@color/section_title_text"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/accountRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="75dp"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:overScrollMode="always"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_your_account" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Enhanced Customer Service Section -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/customerServiceCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="20dp"
+                android:elevation="2dp"
+                app:cardBackgroundColor="@color/section_card_background"
+                app:cardCornerRadius="14dp"
+                app:layout_constraintTop_toBottomOf="@+id/accountCard">
+
+                <LinearLayout
+                    android:id="@+id/customerServiceLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:text="@string/need_your_help"
+                        android:textColor="@color/section_title_text"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/customerServiceButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:padding="10dp"
+                        android:text="@string/visit_customer_service"
+                        app:backgroundTint="@color/help_button_background"
+                        app:cornerRadius="12dp"
+                        style="@style/Widget.Material3.Button" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

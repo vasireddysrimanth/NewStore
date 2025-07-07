@@ -62,6 +62,7 @@ class CartsFragment : BaseFragment<FragmentCartsBinding>(), View.OnClickListener
 
             adapter.setOnDeleteItemClickListener { product ->
                 deleteCartItem(product)
+                showSnackBar("Item Deleted From Cart..!",binding.root)
             }
 
             adapter.setOnQuantityChangeListener { product, newQuantity ->
@@ -115,8 +116,9 @@ class CartsFragment : BaseFragment<FragmentCartsBinding>(), View.OnClickListener
     }
 
     private fun updateCartButtonsVisibility(isCartEmpty: Boolean) {
-        binding.clearCart.visibility = if (isCartEmpty) View.INVISIBLE else View.VISIBLE
-        binding.buyAll.visibility = if (isCartEmpty) View.INVISIBLE else View.VISIBLE
+        binding.clearCart.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
+        binding.buyAll.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
+        binding.buttonContainer.visibility = if(isCartEmpty) View.GONE else View.VISIBLE
     }
 
     private fun updateTotalPrice(cartItems: List<AddToCartEntity>) {
@@ -125,10 +127,6 @@ class CartsFragment : BaseFragment<FragmentCartsBinding>(), View.OnClickListener
             val price = item.price ?: 0.0
             quantity * price
         }
-
-        // Update total price in UI if you have a total price TextView
-        // binding.txtTotalPrice.text = "Total: ₹${"%.2f".format(totalPrice)}"
-
         AppLogger.d("CartsFragment", "Total price: $totalPrice")
     }
 
@@ -141,11 +139,7 @@ class CartsFragment : BaseFragment<FragmentCartsBinding>(), View.OnClickListener
             binding.buyAll -> {
                 val cartItems = adapter.differ.currentList
                 val allCartItems = cartItems.map { it.asProductModel() }
-                replaceFragment(
-                    R.id.fragment_container,
-                    CheckOutFragment.newInstance(allCartItems),
-                    true
-                )
+                replaceFragment( R.id.fragment_container, CheckOutFragment.newInstance(allCartItems,true), true)
                 AppLogger.d("CartsFragment", "Buy all clicked")
             }
             else -> {

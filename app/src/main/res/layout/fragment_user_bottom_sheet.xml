@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp">
+    android:padding="5dp"
+    android:background="#F8F9FA">
 
     <!-- Profile Header -->
     <LinearLayout
@@ -15,6 +15,7 @@
         android:orientation="horizontal"
         android:padding="8dp"
         android:gravity="center_vertical"
+        android:background="#FFFFFF"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -26,7 +27,8 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:textColor="#212121" />
 
         <View
             android:layout_width="0dp"
@@ -39,18 +41,18 @@
             android:layout_height="32dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/baseline_clear_24"
-            android:tint="@android:color/black"/>
+            android:tint="#757575"/>
     </LinearLayout>
 
     <!-- Card with user image, name, label, and view -->
     <androidx.cardview.widget.CardView
         android:id="@+id/userCard"
         android:layout_width="0dp"
-        android:backgroundTint="#E6E6FA"
+        android:backgroundTint="#FFFFFF"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:cardElevation="4dp"
-        app:cardCornerRadius="8dp"
+        app:cardElevation="6dp"
+        app:cardCornerRadius="12dp"
         app:layout_constraintTop_toBottomOf="@id/profileLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -59,8 +61,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="8dp"
-            android:gravity="center_vertical">
+            android:padding="16dp"
+            android:gravity="center_vertical"
+            android:background="#FFFFFF">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/product_image"
@@ -74,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:orientation="vertical"
-                android:layout_marginStart="8dp">
+                android:layout_marginStart="16dp">
 
                 <TextView
                     android:id="@+id/textViewUserName"
@@ -82,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:text="userName"
                     android:textSize="20sp"
-                    android:textColor="@android:color/black"
+                    android:textColor="#212121"
                     android:textStyle="bold" />
 
                 <TextView
@@ -91,57 +94,61 @@
                     android:layout_height="wrap_content"
                     android:text="Premium Member"
                     android:textSize="14sp"
-                    android:textColor="@color/background_blue" />
+                    android:textColor="#2196F3"
+                    android:layout_marginTop="4dp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/textViewView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/background_blue"
+                android:textSize="16sp"
+                android:textColor="#2196F3"
                 android:text="view"
-                android:gravity="center_vertical" />
+                android:gravity="center_vertical"
+                android:textStyle="bold" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
     <View
         android:id="@+id/divider"
         android:layout_width="0dp"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:background="#E0E0E0"
         app:layout_constraintTop_toBottomOf="@id/userCard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/divider"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical">
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:background="#FFFFFF"
+        android:padding="16dp">
+
         <TextView
             android:id="@+id/textViewSignedAsFull"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:text="Signed in as: user@example.com"
             android:textSize="14sp"
-            android:textColor="@color/background_blue" />
-
+            android:textColor="#757575"
+            android:layout_marginBottom="16dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/signOut"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:padding="10dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="10dp"
             android:text="@string/sign_out"
-            style="@style/App.OutlineButton.Default1"
-            />
+            android:textColor="#2196F3"
+            android:backgroundTint="#F5F5F5"
+            app:strokeColor="#2196F3"
+            app:strokeWidth="1dp"
+            app:cornerRadius="8dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.dev.storeapp.R
 import com.dev.storeapp.app.base.BaseFragment
 import com.dev.storeapp.app.common.Result
+import com.dev.storeapp.app.constants.Constants
 import com.dev.storeapp.app.extensions.launchAndRepeatOnStarted
 import com.dev.storeapp.app.utils.AppLogger
 import com.dev.storeapp.data.model.AccountFeature
@@ -22,6 +24,7 @@ import com.dev.storeapp.presentation.ui.dialog.UserBottomSettingsSheetFragment
 import com.dev.storeapp.presentation.ui.dialog.UserBottomSheetFragment
 import com.dev.storeapp.presentation.ui.order.OrderFragment
 import com.dev.storeapp.presentation.ui.products.ProductFragment
+import com.dev.storeapp.presentation.ui.users.UserFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
@@ -82,7 +85,9 @@ class ProfileFragment : BaseFragment<FragmentYouBinding>() {
             AccountFeature("Recent Orders", FeatureDestination.RECENT_ORDERS),
             AccountFeature("Your Profile", FeatureDestination.PROFILE),
             AccountFeature("Orders", FeatureDestination.ORDERS),
-            AccountFeature("Carts", FeatureDestination.CARTS)
+            AccountFeature("Carts", FeatureDestination.CARTS),
+            AccountFeature("Your Supports", FeatureDestination.YOUR_SUPPORTS),
+            AccountFeature("Legal & About", FeatureDestination.LEGAL_AND_ABOUT)
         )
 
         val adapter = AccountFeaturesAdapter(features, ::handleOnClick)
@@ -124,10 +129,20 @@ class ProfileFragment : BaseFragment<FragmentYouBinding>() {
     private fun handleOnClick(destination: FeatureDestination) {
         when (destination) {
             FeatureDestination.BUY_AGAIN -> replaceFragment(R.id.fragment_container, ProductFragment.newInstance(),true)
-            FeatureDestination.RECENT_ORDERS-> replaceFragment(R.id.fragment_container, ProductFragment.newInstance(),true)
+            FeatureDestination.RECENT_ORDERS-> replaceFragment(R.id.fragment_container, OrderFragment.newInstance(),true)
             FeatureDestination.ORDERS -> replaceFragment(R.id.fragment_container, OrderFragment.newInstance(),true)
             FeatureDestination.PROFILE -> replaceFragment(R.id.fragment_container, UserDetailsFragment.newInstance(),true)
             FeatureDestination.CARTS -> replaceFragment(R.id.fragment_container, CartsFragment.newInstance(),true)
+            FeatureDestination.YOUR_SUPPORTS -> replaceFragment(R.id.fragment_container, UserFragment.newInstance(),true)
+            FeatureDestination.LEGAL_AND_ABOUT -> openSettingsDetailFragment(Constants.SECTION_ABOUT)
+        }
+    }
+
+
+    private fun openSettingsDetailFragment(section: String) {
+        activity?.supportFragmentManager?.commit {
+            replace(R.id.fragment_container, SettingsDetailFragment.newInstance(section))
+            addToBackStack(ProfileFragment.TAG)
         }
     }
 }

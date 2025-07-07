@@ -74,7 +74,6 @@ class CartsAdapter : RecyclerView.Adapter<CartsAdapter.MyViewHolder>() {
                 val quantity = product.quantity ?: 1
                 txtQuantity.text = quantity.toString()
                 txtPrice.text = product.price?.times(quantity).toString()
-                // Handle decrease button state and click
                 btnDecrease.isEnabled = quantity > 1
                 btnDecrease.alpha = if (quantity > 1) 1.0f else 0.5f
 
@@ -85,13 +84,11 @@ class CartsAdapter : RecyclerView.Adapter<CartsAdapter.MyViewHolder>() {
                     }
                 }
 
-                // Handle increase button click
                 btnIncrease.setOnClickListener {
                     val newQuantity = quantity + 1
                     onQuantityChangeListener?.invoke(product, newQuantity)
                 }
 
-                // Show/hide quantity controls based on quantity
                 if (quantity <= 0) {
                     quantityContainer.visibility = View.GONE
                 } else {

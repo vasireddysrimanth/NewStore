@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="productBackground">#F8F9FA</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purple_700">#FF3700B3</color>
@@ -14,8 +15,127 @@
     <color name="details_color">#F0F4F8</color>
     <color name="settings_color">#99000000</color>
     <color name="search_bg_color">#33FFFFFF</color>
-    <color name="search_text_color">#162032</color>
-    <color name="navigation_color">	#B2F5F7</color>
+    <color name="navigation_color">#B2F5F7</color>
+
+    <!-- Profile Main Background Colors -->
+    <color name="profile_main_background">#F5F7FA</color>
+    <color name="search_card_background">#FFFFFF</color>
+    <color name="profile_header_background">#4A90E2</color>
+    <color name="section_card_background">#FFFFFF</color>
+
+    <!-- Profile Header Colors -->
+    <color name="profile_greeting_text">#E8F4FD</color>
+    <color name="profile_username_text">#FFFFFF</color>
+    <color name="profile_accent_color">#FFFFFF</color>
+    <color name="profile_image_border">#FFFFFF</color>
+    <color name="settings_icon_tint">#FFFFFF</color>
+
+    <!-- Section Text Colors -->
+    <color name="section_title_text">#2C3E50</color>
+    <color name="section_subtitle_text">#7F8C8D</color>
+
+    <!-- Button Colors -->
+    <color name="button_background">#FFFFFF</color>
+    <color name="button_stroke">#4A90E2</color>
+    <color name="help_button_background">#27AE60</color>
+
+    <!-- Main Background Colors -->
+    <color name="main_background">#F8F9FA</color>
+    <color name="search_card_bg">#FFFFFF</color>
+    <color name="recycler_bg">#FFFFFF</color>
+
+    <!-- Search Colors -->
+    <color name="search_text_color">#2C3E50</color>
+    <color name="search_hint_color">#7F8C8D</color>
+
+    <!-- FAB Colors -->
+    <color name="fab_background">#3498DB</color>
+    <color name="fab_icon_color">#FFFFFF</color>
+    <color name="fab_ripple">#5DADE2</color>
+
+    <!-- Cart Colors -->
+
+    <!-- Background Colors -->
+    <color name="background_light_gray">#F5F5F5</color>
+    <color name="background_white">#FFFFFF</color>
+    <color name="background_card">#FAFAFA</color>
+
+    <!-- Action Button Colors -->
+    <color name="danger_red">#F44336</color>
+    <color name="danger_red_dark">#D32F2F</color>
+    <color name="success_green">#4CAF50</color>
+    <color name="success_green_dark">#388E3C</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_white">#FFFFFF</color>
+
+    <!-- Border and Divider Colors -->
+    <color name="divider_color">#E0E0E0</color>
+    <color name="border_light">#EEEEEE</color>
+
+
+    <!-- settings colors -->
+    <!-- Primary Colors -->
+    <color name="primary_blue">#2196F3</color>
+    <color name="primary_blue_dark">#1976D2</color>
+    <color name="primary_blue_light">#BBDEFB</color>
+
+    <!-- Cart Screen Background Colors -->
+    <color name="cart_background_light_gray">#F5F5F5</color>
+    <color name="cart_background_white">#FFFFFF</color>
+    <color name="cart_background_card">#FAFAFA</color>
+
+    <!-- Cart Action Button Colors -->
+    <color name="cart_danger_red">#F44336</color>
+    <color name="cart_danger_red_dark">#D32F2F</color>
+    <color name="cart_success_green">#4CAF50</color>
+    <color name="cart_success_green_dark">#388E3C</color>
+
+    <!-- Cart Text Colors -->
+    <color name="cart_text_primary">#212121</color>
+    <color name="cart_text_secondary">#757575</color>
+    <color name="cart_text_white">#FFFFFF</color>
+
+    <!-- Cart Border and Divider Colors -->
+    <color name="cart_divider_color">#E0E0E0</color>
+    <color name="cart_border_light">#EEEEEE</color>
+
+    <!-- Categories Screen Main Colors -->
+    <color name="categories_background_main">#F0F4F8</color>
+    <color name="categories_header_background">#FFFFFF</color>
+    <color name="categories_text_header">#1A202C</color>
+
+    <!-- Categories Icon and Badge Colors -->
+    <color name="categories_icon_background">#E6FFFA</color>
+    <color name="categories_icon_tint">#38B2AC</color>
+
+    <!-- Categories Layout Section Colors -->
+    <color name="categories_sidebar_background">#EDF2F7</color>
+    <color name="categories_content_background">#FFFFFF</color>
+
+    <!-- Categories Bottom Navigation Colors -->
+    <color name="categories_bottom_nav_background">#FFFFFF</color>
+    <color name="categories_nav_button_background">#F7FAFC</color>
+    <color name="categories_nav_button_text">#2D3748</color>
+    <color name="categories_nav_button_stroke">#E2E8F0</color>
+
+    <!-- Categories Accent Colors -->
+    <color name="categories_accent_blue">#3182CE</color>
+    <color name="categories_accent_purple">#805AD5</color>
+    <color name="categories_accent_green">#38A169</color>
+    <color name="categories_accent_orange">#DD6B20</color>
+    <color name="categories_accent_pink">#D53F8C</color>
+    <color name="categories_accent_teal">#319795</color>
+
+    <!-- Categories Light Variants -->
+    <color name="categories_light_blue">#EBF8FF</color>
+    <color name="categories_light_purple">#FAF5FF</color>
+    <color name="categories_light_green">#F0FFF4</color>
+    <color name="categories_light_orange">#FFFAF0</color>
+    <color name="categories_light_pink">#FFF5F7</color>
+    <color name="categories_light_teal">#E6FFFA</color>
 
 
 </resources>

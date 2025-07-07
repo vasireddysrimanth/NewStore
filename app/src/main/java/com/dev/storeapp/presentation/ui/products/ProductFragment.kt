@@ -22,6 +22,7 @@ import com.dev.storeapp.databinding.FragmentProductBinding
 import com.dev.storeapp.presentation.adapter.ProductAdapter
 import com.dev.storeapp.presentation.ui.carts.AddToCartViewModel
 import com.dev.storeapp.presentation.ui.dialog.AddProductDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -61,6 +62,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>() {
         }
         adapter.setOnAddToCartClickListener { productEntity ->
             cartsViewModel.upsertToCart(productEntity.toAddToCartEntity())
+            showSnackBar("product added to cart",binding.root)
         }
 
         binding.txtSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

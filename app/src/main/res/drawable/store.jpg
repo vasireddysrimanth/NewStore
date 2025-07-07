@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <!-- Gradient for a professional, techy look -->
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E2A47; stop-opacity:1"></stop>
+      <stop offset="100%" style="stop-color:#00B4D8; stop-opacity:1"></stop>
+    </linearGradient>
+  </defs>
+  
+  <!-- Icon Circle Background -->
+  <circle cx="100" cy="100" r="90" fill="url(#gradient)"></circle>
+  
+  <!-- SV Text in Bold, Modern Font -->
+  <text x="50%" y="50%" font-family="Montserrat, sans-serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="middle">
+    SV
+  </text>
+  
+</svg>

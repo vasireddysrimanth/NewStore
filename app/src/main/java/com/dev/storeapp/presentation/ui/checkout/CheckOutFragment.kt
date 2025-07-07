@@ -9,6 +9,8 @@ import com.dev.payment.OnPaymentConfirmedListener
 import com.dev.payment.payment.PaymentNewFragment
 import com.dev.storeapp.R
 import com.dev.storeapp.app.base.BaseFragment
+import com.dev.storeapp.app.utils.AppUtils
+import com.dev.storeapp.data.local.entity.OrderEntity
 import com.dev.storeapp.data.model.Product
 import com.dev.storeapp.data.model.mapToPaymentProducts
 import com.dev.storeapp.data.model.mapToStoreProducts
@@ -16,7 +18,7 @@ import com.dev.storeapp.databinding.FragmentCheckOutBinding
 import com.dev.storeapp.presentation.adapter.CheckOutAdapter
 import com.dev.storeapp.presentation.ui.carts.AddToCartViewModel
 import com.dev.storeapp.presentation.ui.order.OrderDetailsFragment
-import com.google.android.material.snackbar.Snackbar
+import com.dev.storeapp.presentation.ui.order.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +29,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(), OnPaymentConfi
     private var product: Product? = null
     private var allProducts: List<Product> = emptyList()
     private var checkOutAdapter: CheckOutAdapter? = null
-
+    private val orderViewModel :OrderViewModel by viewModels()
     private var currentProductList = mutableListOf<Product>()
 
     companion object {
@@ -41,10 +43,11 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(), OnPaymentConfi
             }
         }
 
-        fun newInstance(products: List<Product>): CheckOutFragment {
+        fun newInstance(products: List<Product>,isAllProduct : Boolean = false): CheckOutFragment {
             return CheckOutFragment().apply {
                 arguments = Bundle().apply {
                     putParcelableArrayList("products", ArrayList(products))
+                    putBoolean("isAllProduct", isAllProduct)
                 }
             }
         }
@@ -94,7 +97,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(), OnPaymentConfi
 
     private fun navigateToPayment() {
         if (currentProductList.isEmpty()) {
-            Snackbar.make(binding.root, "No items to checkout", Snackbar.LENGTH_SHORT).show()
+            showSnackBar("No items to checkout", binding.root)
             return
         }
         val paymentProducts = mapToPaymentProducts(currentProductList)
@@ -105,13 +108,19 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(), OnPaymentConfi
 
     override fun onPaymentConfirmed(products: List<com.dev.payment.payment.Product>) {
         val storeProducts = mapToStoreProducts(products)
-        cartViewModel.deleteAllCarts() //for clear
+        arguments?.getBoolean("isAllProduct", false).let {
+            if(it == true) cartViewModel.deleteAllCarts()
+            else cartViewModel.deleteCartById(product?.id ?: -1)
+        }
+        replaceFragment(R.id.fragment_container,OrderDetailsFragment.newInstance(storeProducts), true)
+        orderViewModel.insertOrder(OrderEntity(
+            products = storeProducts,
+            orderId = AppUtils.getGuid(),
+            totalAmount = storeProducts.sumOf { it.price.toDouble() * it.quantity },
+            timestamp = System.currentTimeMillis(),
+            paymentMode = "Cash",
+        ))
 
-        replaceFragment(
-            R.id.fragment_container,
-            OrderDetailsFragment.newInstance(storeProducts),
-            true
-        )
     }
 
 

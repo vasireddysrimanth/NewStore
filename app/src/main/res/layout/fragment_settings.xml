@@ -5,52 +5,57 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FB">
+    android:background="@color/categories_background_main">
 
+    <!-- Enhanced Header Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingTop="12dp"
-        android:paddingBottom="8dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:paddingTop="16dp"
+        android:paddingBottom="12dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:background="@color/categories_header_background"
+        android:elevation="2dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/categories_icon_background"
+            android:padding="8dp">
 
             <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_star" />
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_star"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Top Picks"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
-                android:textColor="#333"
+                android:textColor="@color/text_primary"
                 android:gravity="center"
                 android:paddingTop="2dp"/>
         </LinearLayout>
 
         <View
-            android:layout_width="12dp"
+            android:layout_width="16dp"
             android:layout_height="0dp" />
 
-        <!-- Title -->
+        <!-- Enhanced Title -->
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Top Categories For You"
             android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="#222"
+            android:textSize="20sp"
+            android:textColor="@color/categories_text_header"
             android:gravity="center"
             android:layout_weight="1"/>
 
@@ -59,22 +64,24 @@
             android:layout_height="0dp" />
     </LinearLayout>
 
-    <!-- Main Content Row -->
+    <!-- Main Content Row with Enhanced Colors -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <!-- Left Menu RecyclerView -->
+        <!-- Left Menu RecyclerView with Gradient-like Background -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.8"
             android:orientation="vertical"
-            android:background="#E7EEF6"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
+            android:background="@color/categories_sidebar_background"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/leftMenuRecyclerView"
@@ -82,17 +89,19 @@
                 android:layout_height="match_parent"
                 tools:listitem="@layout/item_left_layout"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:nestedScrollingEnabled="false" />
+                android:nestedScrollingEnabled="false"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical" />
         </LinearLayout>
 
-        <!-- Main Categories RecyclerView -->
+        <!-- Main Categories RecyclerView with Card Background -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2.2"
             android:orientation="vertical"
-            android:padding="8dp"
-            android:background="@android:color/white">
+            android:padding="12dp"
+            android:background="@color/categories_content_background">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mainCategoriesRecyclerView"
@@ -102,89 +111,102 @@
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
                 android:nestedScrollingEnabled="false"
-                android:horizontalSpacing="8dp"
-                android:verticalSpacing="8dp" />
+                android:horizontalSpacing="12dp"
+                android:verticalSpacing="12dp"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Static Bottom Button Navigation -->
+    <!-- Enhanced Bottom Navigation Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@android:color/white"
-        android:padding="8dp"
+        android:background="@color/categories_bottom_nav_background"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:weightSum="4"
-        android:elevation="6dp"
+        android:elevation="8dp"
         android:gravity="center">
 
         <com.google.android.material.button.MaterialButton
             android:layout_weight="1"
             android:id="@+id/orderButton"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:minWidth="0dp"
             android:text="Orders"
-            android:textSize="10sp"
-            android:textStyle="normal"
-            android:layout_margin="2dp"
-            android:textColor="#000000"
+            android:textSize="12sp"
+            android:layout_margin="4dp"
+            android:textColor="@color/categories_nav_button_text"
+            android:backgroundTint="@color/categories_nav_button_background"
             android:singleLine="true"
             android:ellipsize="end"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            style="@style/App.OutlineButton.Default1" />
+            app:cornerRadius="8dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/categories_nav_button_stroke" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_weight="1"
             android:id="@+id/buyAgain"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:minWidth="0dp"
             android:text="Buy Again"
-            android:textSize="9sp"
-            android:textStyle="normal"
-            android:layout_margin="2dp"
-            android:textColor="#000000"
+            android:textSize="12dp"
+            android:layout_margin="4dp"
+            android:textColor="@color/categories_nav_button_text"
+            android:backgroundTint="@color/categories_nav_button_background"
             android:singleLine="true"
             android:ellipsize="end"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            style="@style/App.OutlineButton.Default1" />
+            app:cornerRadius="8dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/categories_nav_button_stroke" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_weight="1"
             android:id="@+id/profileButton"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:minWidth="0dp"
             android:text="Profile"
-            android:textSize="10sp"
-            android:textStyle="normal"
-            android:layout_margin="2dp"
-            android:textColor="#000000"
+            android:textSize="12sp"
+            android:layout_margin="4dp"
+            android:textColor="@color/categories_nav_button_text"
+            android:backgroundTint="@color/categories_nav_button_background"
             android:singleLine="true"
             android:ellipsize="end"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            style="@style/App.OutlineButton.Default1" />
+            app:cornerRadius="8dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/categories_nav_button_stroke" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_weight="1"
             android:layout_width="0dp"
             android:id="@+id/ListsButton"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:minWidth="0dp"
             android:text="Lists"
-            android:textSize="10sp"
-            android:textStyle="normal"
-            android:layout_margin="2dp"
-            android:textColor="#000000"
+            android:textSize="12sp"
+            android:layout_margin="4dp"
+            android:textColor="@color/categories_nav_button_text"
+            android:backgroundTint="@color/categories_nav_button_background"
             android:singleLine="true"
             android:ellipsize="end"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            style="@style/App.OutlineButton.Default1" />
+            app:cornerRadius="8dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/categories_nav_button_stroke" />
 
     </LinearLayout>
 

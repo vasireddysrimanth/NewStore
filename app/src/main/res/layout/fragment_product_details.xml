@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F5F7FA">
 
+    <!-- Enhanced Toolbar with gradient-like effect -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/product_detail_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/white"
+        android:elevation="4dp"
+        android:background="#1976D2"
         app:navigationIcon="@drawable/baseline_arrow_back_24">
 
         <TextView
@@ -19,7 +21,7 @@
             android:layout_gravity="center"
             android:text="Product Details"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="18sp" />
     </androidx.appcompat.widget.Toolbar>
 
@@ -27,194 +29,268 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        android:backgroundTint="#F0F4F8"
+        android:background="#F5F7FA"
         android:fillViewport="true"
         android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Product Image -->
-            <ImageView
-                android:id="@+id/product_image"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_launcher_background"
-                android:layout_marginBottom="24dp" />
-
-            <LinearLayout android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView android:text="Title: "
-                    android:textStyle="bold"
-                    android:textColor="#37474F"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView android:id="@+id/product_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#607D8B"
-                    android:text="Samsung Galaxy A14 Case"/>
-            </LinearLayout>
-
-            <LinearLayout android:orientation="horizontal"
+            <!-- Product Image Container with Card-like background -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
-                <TextView android:text="Description: "
-                    android:textStyle="bold"
-                    android:textColor="#37474F"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView android:id="@+id/product_description"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="#607D8B"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:text="High-quality case for Samsung Galaxy A14 with durable protection and soft touch."/>
-            </LinearLayout>
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                android:background="@android:color/white">
 
-            <!-- Brand -->
-            <LinearLayout android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
-                <TextView android:text="Brand: "
-                    android:textStyle="bold"
-                    android:textColor="#37474F"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView android:id="@+id/product_brand"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#607D8B"
-                    android:text="Samsung"/>
-            </LinearLayout>
-
-            <LinearLayout android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
-                <TextView android:text="Color: "
-                    android:textStyle="bold"
-                    android:textColor="#37474F"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView android:id="@+id/product_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#607D8B"
-                    android:text="Green"/>
-            </LinearLayout>
-
-            <LinearLayout android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
-                <TextView android:text="Category: "
-                    android:textStyle="bold"
-                    android:textColor="#37474F"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView android:id="@+id/product_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#607D8B"
-                    android:text="Mobile Accessories"/>
-            </LinearLayout>
-
-            <!-- Model -->
-            <LinearLayout android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
-                <TextView android:text="Model: "
-                    android:textStyle="bold"
-                    android:textColor="#37474F"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView android:id="@+id/product_model"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#607D8B"
-                    android:text="A14"/>
-            </LinearLayout>
-
-            <LinearLayout android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
-                <TextView android:text="Price: "
-                    android:textStyle="bold"
-                    android:textColor="#37474F"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView android:id="@+id/product_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#607D8B"
-                    android:text="₹500"/>
-            </LinearLayout>
-
-            <!-- Discount -->
-            <LinearLayout android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
-                <TextView android:text="Discount: "
-                    android:textStyle="bold"
-                    android:textColor="#37474F"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView android:id="@+id/product_discount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#D84315"
-                    android:text="85% off"/>
-            </LinearLayout>
-
-            <!-- Buttons -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="24dp">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/addToCart"
+                <ImageView
+                    android:id="@+id/product_image"
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:text="Add to Cart"
-                    android:textColor="@android:color/black"
-                    android:backgroundTint="#FFEB3B"
-                    android:layout_marginBottom="8dp"
-                    android:visibility="visible" />
+                    android:layout_height="250dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_launcher_background"
+                    android:background="@android:color/white"
+                    android:padding="8dp" />
+            </androidx.cardview.widget.CardView>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/removeFromCart"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:text="Remove from Cart"
-                    android:textColor="@android:color/black"
-                    android:backgroundTint="#FFEB3B"
-                    android:layout_marginBottom="8dp"
-                    android:visibility="gone" />
+            <!-- Product Details Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                android:background="@android:color/white">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buyNowButton"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:text="Buy Now"
-                    android:textColor="@android:color/black"
-                    android:backgroundTint="#FF9800" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="@android:color/white">
+
+                    <!-- Title Section -->
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#E3F2FD"
+                        android:padding="12dp"
+                        android:layout_marginBottom="8dp">
+                        <TextView android:text="Title: "
+                            android:textStyle="bold"
+                            android:textColor="#1565C0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView android:id="@+id/product_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#1976D2"
+                            android:textStyle="bold"
+                            android:text="Samsung Galaxy A14 Case"/>
+                    </LinearLayout>
+
+                    <!-- Description Section -->
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#F3E5F5"
+                        android:padding="12dp"
+                        android:layout_marginBottom="8dp">
+                        <TextView android:text="Description: "
+                            android:textStyle="bold"
+                            android:textColor="#7B1FA2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView android:id="@+id/product_description"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="#8E24AA"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            android:text="High-quality case for Samsung Galaxy A14 with durable protection and soft touch."/>
+                    </LinearLayout>
+
+                    <!-- Brand Section -->
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#E8F5E8"
+                        android:padding="12dp"
+                        android:layout_marginBottom="8dp">
+                        <TextView android:text="Brand: "
+                            android:textStyle="bold"
+                            android:textColor="#2E7D32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView android:id="@+id/product_brand"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#388E3C"
+                            android:text="Samsung"/>
+                    </LinearLayout>
+
+                    <!-- Color Section -->
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FFF3E0"
+                        android:padding="12dp"
+                        android:layout_marginBottom="8dp">
+                        <TextView android:text="Color: "
+                            android:textStyle="bold"
+                            android:textColor="#F57C00"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView android:id="@+id/product_color"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#FF9800"
+                            android:text="Green"/>
+                    </LinearLayout>
+
+                    <!-- Category Section -->
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FCE4EC"
+                        android:padding="12dp"
+                        android:layout_marginBottom="8dp">
+                        <TextView android:text="Category: "
+                            android:textStyle="bold"
+                            android:textColor="#C2185B"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView android:id="@+id/product_category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#E91E63"
+                            android:text="Mobile Accessories"/>
+                    </LinearLayout>
+
+                    <!-- Model Section -->
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#E1F5FE"
+                        android:padding="12dp"
+                        android:layout_marginBottom="8dp">
+                        <TextView android:text="Model: "
+                            android:textStyle="bold"
+                            android:textColor="#0277BD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView android:id="@+id/product_model"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#0288D1"
+                            android:text="A14"/>
+                    </LinearLayout>
+
+                    <!-- Price Section -->
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#E8F5E8"
+                        android:padding="12dp"
+                        android:layout_marginBottom="8dp">
+                        <TextView android:text="Price: "
+                            android:textStyle="bold"
+                            android:textColor="#2E7D32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView android:id="@+id/product_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#388E3C"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:text="₹500"/>
+                    </LinearLayout>
+
+                    <!-- Discount Section -->
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FFEBEE"
+                        android:padding="12dp">
+                        <TextView android:text="Discount: "
+                            android:textStyle="bold"
+                            android:textColor="#C62828"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView android:id="@+id/product_discount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#D32F2F"
+                            android:textStyle="bold"
+                            android:text="85% off"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Action Buttons Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                android:background="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="@android:color/white">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/addToCart"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:text="Add to Cart"
+                        android:textColor="@android:color/black"
+                        android:backgroundTint="#4CAF50"
+                        android:layout_marginBottom="8dp"
+                        android:visibility="visible"
+                        app:cornerRadius="8dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/removeFromCart"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:text="Remove from Cart"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="#F44336"
+                        android:layout_marginBottom="8dp"
+                        android:visibility="gone"
+                        app:cornerRadius="8dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buyNowButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:text="Buy Now"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="#FF5722"
+                        app:cornerRadius="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

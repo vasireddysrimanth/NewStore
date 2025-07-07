@@ -6,6 +6,6 @@ data class AccountFeature(
 )
 
 enum class FeatureDestination {
-    BUY_AGAIN, RECENT_ORDERS, PROFILE, ORDERS, CARTS
+BUY_AGAIN, RECENT_ORDERS, PROFILE, ORDERS, CARTS,LEGAL_AND_ABOUT,YOUR_SUPPORTS
 }
 

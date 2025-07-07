@@ -15,7 +15,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/store"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/store_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StoreApp"
         tools:targetApi="31">

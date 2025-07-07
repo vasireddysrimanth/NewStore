@@ -6,8 +6,10 @@ pluginManagement {
         maven {
             url = uri("https://maven.pkg.github.com/vasireddysrimanth/modules")
             credentials {
-                username = providers.gradleProperty("gpr.user").getOrElse("")
-                password = providers.gradleProperty("gpr.key").getOrElse("")
+                username = "vasireddysrimanth"
+                password = "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"
+//                username = providers.gradleProperty("gpr.user").getOrElse("")
+//                password = providers.gradleProperty("gpr.key").getOrElse("")
             }
         }
     }
@@ -21,8 +23,10 @@ dependencyResolutionManagement {
         maven {
             url = uri("https://maven.pkg.github.com/vasireddysrimanth/modules")
             credentials {
-                username = providers.gradleProperty("gpr.user").getOrElse("")
-                password = providers.gradleProperty("gpr.key").getOrElse("")
+                username = "vasireddysrimanth"
+                password = "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"
+//                username = providers.gradleProperty("gpr.user").getOrElse("")
+//                password = providers.gradleProperty("gpr.key").getOrElse("")
             }
         }
     }

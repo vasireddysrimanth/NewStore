@@ -107,19 +107,14 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>(), Vi
         when (v.id) {
             R.id.buyNowButton -> product?.let {
                 replaceFragment(R.id.fragment_container, CheckOutFragment.newInstance(it.asProductModel()), true)
-            } ?: showToast("Product not loaded")
+            } ?: showSnackBar("Product not loaded",binding.root)
             R.id.addToCart -> product?.let {
                 viewModel.upsertToCart(it.toAddToCartEntity())
-                showToast("Item Added to Cart!")
-            } ?: showToast("Product not loaded")
+            } ?: showSnackBar("Product not loaded",binding.root)
             R.id.removeFromCart -> product?.let {
                 viewModel.deleteCartById(it.id)
-                showToast("Item Removed from Cart!")
-            } ?: showToast("Product not loaded")
+            } ?: showSnackBar("Product not loaded",binding.root)
         }
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
 }

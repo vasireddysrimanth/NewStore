@@ -4,46 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background"
     tools:context=".presentation.ui.products.ProductFragment">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/txt_search"
+    <!-- Search Section with Card Background -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center_horizontal"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/search_text_color"
-        android:textColorHint="@color/white"
-        android:layout_marginEnd="4dp"
-        android:ems="10"
-        app:queryBackground="@color/search_bg_color"
-        android:gravity="center_vertical"
-        app:iconifiedByDefault="false"
-        app:queryHint="Search by Name"
-         />
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:elevation="4dp"
+        app:cardBackgroundColor="@color/search_card_bg"
+        app:cardCornerRadius="12dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/productRecyclerView"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/txt_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:textColor="@color/search_text_color"
+            android:textColorHint="@color/search_hint_color"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@android:color/transparent"
+            app:queryHint="Search by Name" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Product List Section -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="64dp"
-        android:clipToPadding="false"
-        android:padding="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_product" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="2dp"
+        app:cardBackgroundColor="@color/recycler_bg"
+        app:cardCornerRadius="16dp">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_product" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Enhanced FAB -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnShowDialog"
         android:layout_width="wrap_content"
-        android:layout_height="703dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_margin="20dp"
+        android:elevation="6dp"
         android:src="@drawable/baseline_add_24"
-        app:backgroundTint="@color/background_blue"
+        app:backgroundTint="@color/fab_background"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/secondary_text"
+        app:rippleColor="@color/fab_ripple"
+        app:tint="@color/fab_icon_color"
         tools:ignore="SpeakableTextPresentCheck" />
 
 </FrameLayout>

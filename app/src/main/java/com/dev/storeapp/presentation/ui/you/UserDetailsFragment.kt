@@ -14,6 +14,7 @@ import com.dev.storeapp.app.utils.AppLogger
 import com.dev.storeapp.app.utils.toFormattedDate
 import com.dev.storeapp.data.local.entity.FireBaseUserEntity
 import com.dev.storeapp.databinding.FragmentUserDetailsBinding
+import com.dev.storeapp.presentation.ui.auth.LoginFragment
 import com.dev.storeapp.presentation.ui.dialog.ProfileEditBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -66,6 +67,13 @@ class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding>() {
         binding.editIcon.setOnClickListener{
             val dialog = ProfileEditBottomSheetFragment.newInstance()
             dialog.show(parentFragmentManager,dialog.tag)
+        }
+        binding.editProfileButton.setOnClickListener {
+            val dialog = ProfileEditBottomSheetFragment.newInstance()
+            dialog.show(parentFragmentManager, dialog.tag)
+        }
+        binding.logoutButton.setOnClickListener {
+            replaceFragment(R.id.fragment_container_view, LoginFragment.newInstance(), true)
         }
     }
 

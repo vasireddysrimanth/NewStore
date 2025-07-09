@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import androidx.lifecycle.viewModelScope
 import com.dev.storeapp.app.common.Result
 import com.dev.storeapp.app.common.asResult
+import com.dev.storeapp.app.utils.AppLogger
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
@@ -75,5 +76,14 @@ class AddToCartViewModel @Inject constructor(
         viewModelScope.launch {
             _isInCart.value = addToCartUseCase.isProductInCart(productId)
         }
+    }
+
+     fun updateTotalPrice(cartItems: List<AddToCartEntity>) {
+        val totalPrice = cartItems.sumOf { item ->
+            val quantity = item.quantity ?: 1
+            val price = item.price ?: 0.0
+            quantity * price
+        }
+        AppLogger.d("CartsFragment", "Total price: $totalPrice")
     }
 }

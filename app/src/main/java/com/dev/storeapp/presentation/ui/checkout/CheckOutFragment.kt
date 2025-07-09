@@ -86,6 +86,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(), OnPaymentConfi
 
         binding.checkoutToolbarBackButton.setOnClickListener {
             goBack()
+            goBack()
         }
 
         binding.confirmButton.setOnClickListener {

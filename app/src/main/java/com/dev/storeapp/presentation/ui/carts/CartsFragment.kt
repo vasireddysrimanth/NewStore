@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class CartsFragment : BaseFragment<FragmentCartsBinding>(), View.OnClickListener {
 
     private val viewModel by viewModels<AddToCartViewModel>()
-    private lateinit var adapter: CartsAdapter
+    private  var adapter: CartsAdapter ? = null
 
     companion object {
         const val TAG = "CartsFragment"
@@ -56,23 +56,19 @@ class CartsFragment : BaseFragment<FragmentCartsBinding>(), View.OnClickListener
                 goBack()
             }
 
-            adapter.setOnItemClickListener { product ->
+            adapter?.setOnItemClickListener { product ->
                 replaceFragment(R.id.fragment_container, ProductDetailsFragment.newInstance(product.id), true)
             }
 
-            adapter.setOnDeleteItemClickListener { product ->
+            adapter?.setOnDeleteItemClickListener { product ->
                 deleteCartItem(product)
                 showSnackBar("Item Deleted From Cart..!",binding.root)
             }
 
-            adapter.setOnQuantityChangeListener { product, newQuantity ->
+            adapter?.setOnQuantityChangeListener { product, newQuantity ->
                 updateCartItemQuantity(product, newQuantity)
             }
         }
-    }
-
-    private fun deleteAllCarts() {
-        viewModel.deleteAllCarts()
     }
 
     private fun deleteCartItem(product: AddToCartEntity) {
@@ -103,9 +99,9 @@ class CartsFragment : BaseFragment<FragmentCartsBinding>(), View.OnClickListener
                     is Result.Success -> {
                         hideLoader()
                         val cartItems = it.data.filter { item -> (item.quantity ?: 1) > 0 }
-                        adapter.differ.submitList(cartItems)
+                        adapter?.differ?.submitList(cartItems)
                         updateCartButtonsVisibility(cartItems.isEmpty())
-                        updateTotalPrice(cartItems)
+                        viewModel.updateTotalPrice(cartItems)
                     }
                     is Result.Error -> {
                         AppLogger.e("CartsFragment", "Error: ${it.exception}")
@@ -121,30 +117,26 @@ class CartsFragment : BaseFragment<FragmentCartsBinding>(), View.OnClickListener
         binding.buttonContainer.visibility = if(isCartEmpty) View.GONE else View.VISIBLE
     }
 
-    private fun updateTotalPrice(cartItems: List<AddToCartEntity>) {
-        val totalPrice = cartItems.sumOf { item ->
-            val quantity = item.quantity ?: 1
-            val price = item.price ?: 0.0
-            quantity * price
-        }
-        AppLogger.d("CartsFragment", "Total price: $totalPrice")
-    }
-
     override fun onClick(p0: View?) {
         when (p0) {
             binding.clearCart -> {
-                deleteAllCarts()
+                viewModel.deleteAllCarts()
                 AppLogger.d("CartsFragment", "All carts deleted")
             }
             binding.buyAll -> {
-                val cartItems = adapter.differ.currentList
-                val allCartItems = cartItems.map { it.asProductModel() }
-                replaceFragment( R.id.fragment_container, CheckOutFragment.newInstance(allCartItems,true), true)
+                val cartItems = adapter?.differ?.currentList
+                val allCartItems = cartItems?.map { it.asProductModel() }
+                replaceFragment( R.id.fragment_container, CheckOutFragment.newInstance(allCartItems ?: emptyList(),true), true)
                 AppLogger.d("CartsFragment", "Buy all clicked")
             }
             else -> {
                 AppLogger.d("CartsFragment", "Unknown click action")
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        adapter = null
     }
 }

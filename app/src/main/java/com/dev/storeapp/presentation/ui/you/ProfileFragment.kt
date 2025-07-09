@@ -47,11 +47,11 @@ class ProfileFragment : BaseFragment<FragmentYouBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userViewModel.loadUserName()
-        setupObservers()
+        createObserver()
         intiViews()
     }
 
-    private fun setupObservers() {
+    private fun createObserver() {
         launchAndRepeatOnStarted {
             userViewModel.userUiState.collect { user->
                 when(user){

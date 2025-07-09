@@ -70,8 +70,8 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding>(), Vi
             is Result.Loading -> showLoader()
             is Result.Success -> {
                 hideLoader()
-                product = result.data
                 updateUi(result.data)
+                product = result.data
                 viewModel.isProductInCart(result.data.id)
             }
             is Result.Error -> {

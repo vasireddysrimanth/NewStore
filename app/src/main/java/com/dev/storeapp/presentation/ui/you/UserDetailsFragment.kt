@@ -38,6 +38,10 @@ class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        createObserver()
+    }
+
+    private  fun createObserver(){
         launchAndRepeatOnStarted {
             viewModel.userUiState.collect { result ->
                 when (result) {
@@ -80,6 +84,7 @@ class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding>() {
     private fun updateUI(user: FireBaseUserEntity?) = user?.let {
         binding.textViewUid.text = it.uid
         binding.textViewUserName.text = it.username
+        binding.textViewFullName.text = it.username
         binding.textViewEmail.text = it.email
         binding.textViewGender.text = it.gender
         binding.textViewTimestamp.text = it.createdAt.toFormattedDate()

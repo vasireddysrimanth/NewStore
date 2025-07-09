@@ -30,9 +30,8 @@ import kotlinx.coroutines.launch
 class ProductFragment : BaseFragment<FragmentProductBinding>() {
     private val viewModel by viewModels<ProductsViewModel>()
     private val cartsViewModel: AddToCartViewModel by viewModels()
-    private lateinit var adapter: ProductAdapter
+    private  var adapter: ProductAdapter? = null
     private var allProducts = listOf<ProductEntity>()
-    private var category: String? = null
 
     companion object {
         const val TAG = "ProductFragment"
@@ -50,17 +49,16 @@ class ProductFragment : BaseFragment<FragmentProductBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        category = arguments?.getString(CATEGORY)
         adapter = ProductAdapter()
         initViews()
         createObserver()
     }
 
     private fun initViews() {
-        adapter.setOnItemClickListener { product ->
+        adapter?.setOnItemClickListener { product ->
             goToProductDetails(product.asProductModel())
         }
-        adapter.setOnAddToCartClickListener { productEntity ->
+        adapter?.setOnAddToCartClickListener { productEntity ->
             cartsViewModel.upsertToCart(productEntity.toAddToCartEntity())
             showSnackBar("product added to cart",binding.root)
         }
@@ -101,18 +99,14 @@ class ProductFragment : BaseFragment<FragmentProductBinding>() {
 
     private fun filterProducts(searchText: String? = null) {
         var filteredList = allProducts
-
+        val category = arguments?.getString(CATEGORY)
         if (!category.isNullOrEmpty()) {
             filteredList = allProducts.filter { product ->
-                product.category?.contains(category!!, ignoreCase = true) == true
+                product.category?.contains(category, ignoreCase = true) == true
             }
 
             if (filteredList.isEmpty()) {
-                Toast.makeText(
-                    requireContext(),
-                    "No products found for '$category'. Showing all products.",
-                    Toast.LENGTH_SHORT
-                ).show()
+                showSnackBar("No products found for '$category'. Showing all products.", binding.root)
                 filteredList = allProducts
             }
         }
@@ -123,15 +117,20 @@ class ProductFragment : BaseFragment<FragmentProductBinding>() {
             }
         }
 
-        adapter.differ.submitList(filteredList)
+        adapter?.differ?.submitList(filteredList)
         binding.productRecyclerView.adapter = adapter
     }
 
     private fun showError() {
-        Toast.makeText(requireContext(), "Something went wrong!", Toast.LENGTH_SHORT).show()
+        showSnackBar("Something went wrong", binding.root)
     }
 
     private fun goToProductDetails(product: com.dev.storeapp.data.model.Product) {
         replaceFragment(R.id.fragment_container, ProductDetailsFragment.newInstance(product.id), true)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        adapter = null
     }
 }

@@ -1,7 +1,5 @@
 # 🛒 NewStore - Android E-commerce Application
 
-# 🛒 NewStore - Android E-commerce Application (Updated Version)
-
 A modern Android e-commerce application built with Clean Architecture, MVVM pattern, and traditional Android Views. This app demonstrates best practices in Android development with offline-first capabilities, real-time data synchronization, comprehensive user management, and an intuitive bottom navigation experience.
 
 ## 📱 Updated Features
